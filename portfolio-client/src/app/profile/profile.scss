@@ -1,0 +1,92 @@
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.Main.Wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.Section-Wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 420px;
+    max-width: 90vw;
+}
+
+.Content-Section-Wrapper {
+    width: 100%;
+    padding: 32px;
+    border-radius: 24px;
+}
+
+.Content-Section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+}
+
+.Section-Title {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.Profile-Info-Container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 16px;
+}
+
+.Profile-Status-Text {
+    font-size: 15px;
+    opacity: 0.8;
+}
+
+.Buttons-Container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 8px;
+}
+
+.Action-Button {
+    width: 100%;
+    height: 52px;
+
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.Unauthenticated-Section {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.Unauthenticated-Text {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+.Unauthenticated-Minibutton {
+    flex-shrink: 0;
+}

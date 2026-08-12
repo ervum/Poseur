@@ -1,0 +1,40 @@
+<div class = "Main Wrapper">
+    <div
+        class = "Section-Wrapper"
+        FancySlideUpDown>
+
+        <FancyContainer class = "Content-Section-Wrapper" [ngClass] = "InterfaceService.GetStatusClasses()">
+            @if (IsLoggedIn()) {
+                <div class = "Content-Section">
+                    <span
+                        class = "Section-Title"
+                        [FancyTypewriter] = "'User Profile'">
+                    </span>
+
+                    <div class = "Profile-Info-Container">
+                        <p class = "Profile-Status-Text">You are currently logged in.</p>
+                    </div>
+
+                    <div class = "Buttons-Container">
+                        <FancyButton
+                            class = "Action-Button"
+                            [Label] = "'Sign Out'"
+                            (Up) = "HandleSignOut()">
+                        </FancyButton>
+                    </div>
+                </div>
+            } @else {
+                <div class = "Content-Section Unauthenticated-Section">
+                    <span class = "Unauthenticated-Text">Go to authentication</span>
+
+                    <FancyMinibutton
+                        class = "Unauthenticated-Minibutton"
+                        [Icon] = "'assets/icons/arrow.png'"
+                        (click) = "HandleGoToAuthentication()"
+                        (Activate) = "HandleGoToAuthentication()">
+                    </FancyMinibutton>
+                </div>
+            }
+        </FancyContainer>
+    </div>
+</div>

@@ -19,6 +19,7 @@ import { TypewriterDirective } from './shared/directives/typewriter/typewriter.d
 
 import { InterfaceService } from './core/services/interface/interface';
 import { NavigationService } from './core/services/navigation/navigation';
+import { AuthenticationService } from './core/services/authentication/authentication';
 
 import { Translations, type TranslationDictionary } from './core/internationalization';
 
@@ -28,7 +29,8 @@ const RouteSelectorIndices: Record<string, number> = {
   '/': 0,
   '/home': 0,
   '/authentication': 1,
-  '/authentication/recovery': 1
+  '/authentication/recovery': 1,
+  '/profile': 1
 };
 
 
@@ -68,12 +70,21 @@ export class App implements AfterViewInit {
 
   private NavigationService: NavigationService = inject(NavigationService);
   public InterfaceService: InterfaceService = inject(InterfaceService);
+  private AuthenticationService: AuthenticationService = inject(AuthenticationService);
 
   public SelectedIndex: WritableSignal<number> = signal(this.GetSelectedIndex(this.Location.path()));
 
+  public HandleUserButtonNavigation(): void {
+    if (this.AuthenticationService.IsLoggedIn()) {
+      this.NavigateWithAnimation('profile');
+    } else {
+      this.NavigateWithAnimation('authentication');
+    }
+  }
+
   public RouteSelectorItems: FancyMultibuttonItemType[] = [
     { Label: 'house', Action: () => this.NavigateWithAnimation('home') },
-    { Label: 'user', Action: () => this.NavigateWithAnimation('authentication') },
+    { Label: 'user', Action: () => this.HandleUserButtonNavigation() },
   ];
 
   private SyncSelectedIndexWithRoute(): void {

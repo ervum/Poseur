@@ -5,13 +5,13 @@ export class User {
   @PrimaryGeneratedColumn()
   ID!: number;
 
-  @Column()
+  @Column({ unique: true })
   Email!: string;
 
-  @Column()
+  @Column({ unique: true })
   PhoneNumber!: string;
 
-  @Column()
+  @Column({ unique: true })
   Username!: string;
 
   @Column()

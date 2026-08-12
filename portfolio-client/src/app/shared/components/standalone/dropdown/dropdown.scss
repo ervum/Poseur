@@ -21,8 +21,12 @@
 
     color: var(--text-main);
     
-    &:hover, &:focus-within {
+    &:hover {
         transform: scale(var(--hover-scale-big)) translateZ(0);
+        --container-border-color: var(--border-strong);
+    }
+
+    &:focus-within {
         --container-border-color: var(--border-strong);
     }
 

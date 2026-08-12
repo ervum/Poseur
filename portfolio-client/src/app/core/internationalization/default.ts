@@ -31,6 +31,10 @@ export type TranslationDictionary = {
   Error_01_001: string;
   Error_01_002: string;
   Error_01_003: string;
+  Error_01_004: string;
+  Error_01_005: string;
+  Error_01_006: string;
+  Error_01_007: string;
 };
 
 
@@ -38,7 +42,7 @@ export type TranslationDictionary = {
 export const DefaultDictionary: TranslationDictionary = {
   LanguageCode: 'en',
   
-  PageName: 'Portfolio',
+  PageName: 'TBD',
   
   SignIn: 'Sign In',
   SignUp: 'Sign Up',
@@ -68,4 +72,8 @@ export const DefaultDictionary: TranslationDictionary = {
   Error_01_001: 'The email address introduced is invalid.',
   Error_01_002: 'Password must be longer than or equal to 6 characters.',
   Error_01_003: 'Invalid credentials. Please check your username and password.',
+  Error_01_004: 'No account was found with the provided details.',
+  Error_01_005: 'Username already exists.',
+  Error_01_006: 'Email already exists.',
+  Error_01_007: 'Phone number already exists.',
 };

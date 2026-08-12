@@ -27,7 +27,7 @@ import { ServerConfigurationType } from '@ervum/types';
 
           autoLoadEntities: true,
           synchronize: true,
-          dropSchema: true,
+          dropSchema: false,
         };
       },
     }),

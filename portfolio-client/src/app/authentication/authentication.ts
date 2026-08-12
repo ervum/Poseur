@@ -1,4 +1,4 @@
-import { Component, inject, signal, ViewChild, WritableSignal, computed, type Signal, OnInit, AfterViewInit } from '@angular/core';
+import { Component, inject, signal, ViewChild, WritableSignal, computed, type Signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { LoginData, RegisterData, FancyMultibuttonItemType, AuthenticationFormFieldType, AuthenticationTabType, FieldErrorDescriptor, ErrorRegistry, Undefinable, Nullable } from '@ervum/types';
@@ -40,7 +40,7 @@ import { forkJoin, timer } from 'rxjs';
   templateUrl: './authentication.html',
   styleUrl: './authentication.scss'
 })
-export class AuthenticationComponent implements OnInit, AfterViewInit {
+export class AuthenticationComponent implements OnInit {
   @ViewChild('MainIdentifierTextbox') private MainIdentifierTextbox!: TextboxComponent;
   @ViewChild('EmailTextbox') private EmailTextbox!: TextboxComponent;
   @ViewChild('PhoneNumberTextbox') private PhoneNumberTextbox!: TextboxComponent;
@@ -88,7 +88,22 @@ export class AuthenticationComponent implements OnInit, AfterViewInit {
 
   public readonly RememberMeChecked: WritableSignal<boolean> = signal(false);
 
-  public CurrentFormTab: WritableSignal<AuthenticationTabType> = signal<AuthenticationTabType>('Sign In');
+  private static GetInitialFormTab(): AuthenticationTabType {
+    try {
+      const SavedTab: Nullable<string> = sessionStorage.getItem('AuthenticationTab');
+
+      if (SavedTab === 'Sign Up' || SavedTab === 'Sign In') {
+        return SavedTab as AuthenticationTabType;
+      }
+    } catch {
+      // Fallback
+    }
+
+    return 'Sign In';
+  }
+
+  public CurrentFormTab: WritableSignal<AuthenticationTabType> = signal<AuthenticationTabType>(AuthenticationComponent.GetInitialFormTab());
+  public SelectedMultibuttonIndex: Signal<number> = computed((): number => (this.CurrentFormTab() === 'Sign Up' ? 1 : 0));
 
   public AuthenticationButtons: Signal<FancyMultibuttonItemType[]> = computed((): FancyMultibuttonItemType[] => [
     {
@@ -110,10 +125,10 @@ export class AuthenticationComponent implements OnInit, AfterViewInit {
 
         if (IsFromSignUp && HasVisibleErrors) {
           setTimeout((): void => {
-            this.CurrentFormTab.set('Sign In');
+            this.SetFormTab('Sign In');
           }, 400);
         } else {
-          this.CurrentFormTab.set('Sign In');
+          this.SetFormTab('Sign In');
         }
       }
     },
@@ -122,10 +137,20 @@ export class AuthenticationComponent implements OnInit, AfterViewInit {
       Label: this.InterfaceService.T().SignUp,
       Action: (): void => {
         this.ResetErrors();
-        this.CurrentFormTab.set('Sign Up');
+        this.SetFormTab('Sign Up');
       }
     }
   ]);
+
+  public SetFormTab(Tab: AuthenticationTabType): void {
+    this.CurrentFormTab.set(Tab);
+
+    try {
+      sessionStorage.setItem('AuthenticationTab', Tab);
+    } catch {
+      // Fallback
+    }
+  }
   
   public get IsLoading(): Record<string, boolean> {
     return this.InterfaceService.GetStatusClasses();
@@ -271,21 +296,6 @@ export class AuthenticationComponent implements OnInit, AfterViewInit {
     }
   }
 
-  ngAfterViewInit(): void {
-    const RememberedState: Nullable<string> = this.InterfaceService.GetCookie('RememberMe');
-    const RememberedIdentifier: Nullable<string> = this.InterfaceService.GetCookie('UserIdentifier');
-
-    if ((RememberedState === 'true') && RememberedIdentifier && this.MainIdentifierTextbox) {
-      this.RememberMeChecked.set(true);
-
-      setTimeout((): void => {
-        if (this.MainIdentifierTextbox) {
-          this.MainIdentifierTextbox.InputValue = RememberedIdentifier;
-        }
-      }, 0);
-    }
-  }
-
   private ValidateFields(Rules: { FieldKey: AuthenticationFormFieldType; Value: string; IsEmailCheck?: boolean; MinLength?: number; }[]): boolean {
     let HasValidationError: boolean = false;
 
@@ -371,11 +381,11 @@ export class AuthenticationComponent implements OnInit, AfterViewInit {
 
         if (this.RememberMeChecked()) {
           this.InterfaceService.SetCookie('RememberMe', 'true');
-          this.InterfaceService.SetCookie('UserIdentifier', UserPayload.UserIdentifier);
         } else {
           this.InterfaceService.DeleteCookie('RememberMe');
-          this.InterfaceService.DeleteCookie('UserIdentifier');
         }
+
+        this.AuthenticationService.SetLoggedIn(true);
 
         this.InterfaceService.SetStatus('Success');
 
@@ -423,11 +433,11 @@ export class AuthenticationComponent implements OnInit, AfterViewInit {
 
         if (this.RememberMeChecked()) {
           this.InterfaceService.SetCookie('RememberMe', 'true');
-          this.InterfaceService.SetCookie('UserIdentifier', UserPayload.Username);
         } else {
           this.InterfaceService.DeleteCookie('RememberMe');
-          this.InterfaceService.DeleteCookie('UserIdentifier');
         }
+
+        this.AuthenticationService.SetLoggedIn(true);
 
         this.InterfaceService.SetStatus('Success');
       },

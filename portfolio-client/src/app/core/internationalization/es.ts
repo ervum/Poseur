@@ -5,7 +5,7 @@ import { TranslationDictionary } from './default';
 export const SpanishDictionary: TranslationDictionary = {
   LanguageCode: 'es',
 
-  PageName: 'Portfolio',
+  PageName: 'TBD',
   
   SignIn: 'Iniciar sesión',
   SignUp: 'Registrarse',
@@ -35,4 +35,8 @@ export const SpanishDictionary: TranslationDictionary = {
   Error_01_001: 'El correo electrónico introducido es inválido.',
   Error_01_002: 'La contraseña debe tener al menos 6 caracteres.',
   Error_01_003: 'Credenciales inválidas. Por favor, compruebe su usuario y contraseña.',
+  Error_01_004: 'No se encontró ninguna cuenta con los detalles proporcionados.',
+  Error_01_005: 'El nombre de usuario ya existe.',
+  Error_01_006: 'El correo electrónico ya existe.',
+  Error_01_007: 'El número de teléfono ya existe.',
 };

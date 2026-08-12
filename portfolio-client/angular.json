@@ -37,6 +37,11 @@
             "outputMode": "server",
             "ssr": {
               "entry": "src/server.ts"
+            },
+            "optimization": {
+              "fonts": {
+                "inline": false
+              }
             }
           },
           "configurations": {

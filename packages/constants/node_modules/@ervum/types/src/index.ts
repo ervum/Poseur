@@ -22,6 +22,10 @@ export const ErrorRegistry: Record<string, ErrorInformationDescriptor> = {
   '01_001': { Code: '01_001', IsGeneral: false },
   '01_002': { Code: '01_002', IsGeneral: false },
   '01_003': { Code: '01_003', IsGeneral: false },
+  '01_004': { Code: '01_004', IsGeneral: false },
+  '01_005': { Code: '01_005', IsGeneral: false },
+  '01_006': { Code: '01_006', IsGeneral: false },
+  '01_007': { Code: '01_007', IsGeneral: false },
 };
 
 
@@ -74,6 +78,56 @@ export interface FieldErrorDescriptor {
   FieldKey?: string;
   RawMessage?: string;
   IsGeneral?: boolean;
+};
+
+export interface RecoverUsernameData {
+  Email?: string;
+  PhoneNumber?: string;
+};
+
+export interface RecoverPhoneData {
+  Username?: string;
+  Email?: string;
+};
+
+export interface RecoverEmailData {
+  Username?: string;
+  PhoneNumber?: string;
+};
+
+export interface RecoverPasswordData {
+  UserIdentifier: string;
+};
+
+export interface RecoverUsernameResultItem {
+  Username: string;
+  MatchedBy: string;
+};
+
+export interface RecoverUsernameResponse {
+  Results: RecoverUsernameResultItem[];
+};
+
+export interface RecoverPhoneResultItem {
+  PhoneNumber: string;
+  MatchedBy: string;
+};
+
+export interface RecoverPhoneResponse {
+  Results: RecoverPhoneResultItem[];
+};
+
+export interface RecoverEmailResultItem {
+  Email: string;
+  MatchedBy: string;
+};
+
+export interface RecoverEmailResponse {
+  Results: RecoverEmailResultItem[];
+};
+
+export interface RecoverPasswordResponse {
+  Password: string;
 };
 
 

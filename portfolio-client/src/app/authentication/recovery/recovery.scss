@@ -28,6 +28,14 @@
     position: relative;
 }
 
+.Section-Header-Tooltip {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+}
+
 .Content-Section-Wrapper {
     display: flex;
     flex-direction: column;
@@ -94,13 +102,6 @@
 }
 
 .Form-Fields-Wrapper {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 24px;
-}
-
-.Form-Fields-Wrapper {
     display: grid;
     grid-template-areas: "FormState";
     width: 100%;
@@ -142,6 +143,29 @@
     transition: 
         transform var(--duration-standard) var(--easing-standard),
         opacity var(--duration-standard) var(--easing-standard);
+}
+
+.Input-Field-Wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.Input-Field-Tooltip {
+    position: absolute;
+    left: calc(100% + 58px);
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+}
+
+@media (max-width: 768px) {
+    .Input-Field-Tooltip {
+        left: 50%;
+        top: 100%;
+        transform: translateX(-50%) translateY(10px);
+    }
 }
 
 .Unique-Field {
@@ -206,4 +230,77 @@
     font-weight: 600;
     letter-spacing: 0.05em;
     text-transform: uppercase;
+}
+
+.Recovery-Result-Container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15px 0;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    font-family: 'Inter', sans-serif;
+    animation: fadeIn 0.3s ease-in-out;
+    width: 100%;
+    box-sizing: border-box;
+    gap: 12px;
+}
+
+.Recovery-Result-Main-Label {
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.85);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-align: center;
+}
+
+.Recovery-Result-Parts-Wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    .Is-Split & {
+        flex-direction: row;
+
+        .Recovery-Result-Part {
+            flex: 1;
+            box-sizing: border-box;
+            padding: 0 16px;
+
+            &:not(:last-child) {
+                border-right: 1px solid rgba(255, 255, 255, 0.1);
+            }
+        }
+    }
+}
+
+.Recovery-Result-Part {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+}
+
+.Recovery-Result-Sub-Label {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.5);
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+}
+
+.Recovery-Result-Value {
+    font-size: 18px;
+    font-weight: bold;
+    color: #00ffcc;
+    text-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
 }

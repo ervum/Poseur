@@ -35,21 +35,45 @@ export class UsersService {
       { Email: StringIdentifier },
       { PhoneNumber: StringIdentifier }
     ];
-    // Attempt to parse the identifier as a number in case it matches an ID
-    let NumericIdentifier: number = 0;
     
-    if (typeof Identifier === 'string') {
-      NumericIdentifier = parseInt(Identifier);
-    } else if (typeof Identifier === 'number') {
-      NumericIdentifier = Identifier;
-    }
+    // Only attempt to query by numeric ID if the string contains only digits and is a safe 32-bit signed integer.
+    if (/^\d+$/.test(StringIdentifier)) {
+      const NumericIdentifier: number = parseInt(StringIdentifier, 10);
 
-    if (!isNaN(NumericIdentifier)) {
-      Conditions.push({ ID: NumericIdentifier });
+      if (!isNaN(NumericIdentifier) && NumericIdentifier > 0 && NumericIdentifier <= 2147483647) {
+        Conditions.push({ ID: NumericIdentifier });
+      }
     }
 
     return this.UsersRepository.findOne({
       where: Conditions
+    });
+  }
+
+  async FindByEmail(Email: string): Promise<Nullable<User>> {
+    return this.UsersRepository.findOne({
+      where: { Email: Email }
+    });
+  }
+
+  async FindByPhoneNumber(PhoneNumber: string): Promise<Nullable<User>> {
+    return this.UsersRepository.findOne({
+      where: { PhoneNumber: PhoneNumber }
+    });
+  }
+
+  async FindByUsername(Username: string): Promise<Nullable<User>> {
+    return this.UsersRepository.findOne({
+      where: { Username: Username }
+    });
+  }
+
+  async FindByUsernameOrEmail(Identifier: string): Promise<Nullable<User>> {
+    return this.UsersRepository.findOne({
+      where: [
+        { Username: Identifier },
+        { Email: Identifier }
+      ]
     });
   }
 }

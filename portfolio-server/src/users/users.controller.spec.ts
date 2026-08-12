@@ -3,18 +3,25 @@ import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 
 describe('UsersController', () => {
-  let controller: UsersController;
+  let Controller: UsersController;
+
+  const MockUsersService = {};
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+    const Module: TestingModule = await Test.createTestingModule({
       controllers: [UsersController],
-      providers: [UsersService],
+      providers: [
+        {
+          provide: UsersService,
+          useValue: MockUsersService,
+        },
+      ],
     }).compile();
 
-    controller = module.get<UsersController>(UsersController);
+    Controller = Module.get<UsersController>(UsersController);
   });
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
+  it('Should be defined', () => {
+    expect(Controller).toBeDefined();
   });
 });
