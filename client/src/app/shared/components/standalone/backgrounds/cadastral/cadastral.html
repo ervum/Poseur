@@ -1,0 +1,23 @@
+<div
+    class = "Cadastral-Layer"
+    [class.Cadastral-Layer--Ambient] = "Motion() === 'Ambient'"
+    [class.Cadastral-Layer--Evolving] = "Motion() === 'Evolving'"
+    [style.opacity] = "StageOpacity()">
+    @if (Motion() === 'Evolving') {
+        <canvas #EvolvingCanvas class = "Cadastral-Canvas"></canvas>
+    } @else {
+        <svg
+            class = "Cadastral-SVG"
+            [attr.viewBox] = "'0 0 ' + ViewWidth + ' ' + ViewHeight"
+            preserveAspectRatio = "xMidYMid slice"
+            aria-hidden = "true">
+            @for (Parcel of Parcels(); track $index) {
+                <path
+                    class = "Cadastral-Parcel"
+                    [class.Cadastral-Parcel--Major] = "Parcel.IsMajorBlock"
+                    [class.Cadastral-Parcel--Accent] = "Parcel.IsAccentParcel"
+                    [attr.d] = "Parcel.PathData" />
+            }
+        </svg>
+    }
+</div>

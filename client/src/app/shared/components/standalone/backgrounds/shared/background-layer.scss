@@ -1,0 +1,33 @@
+@mixin ProceduralLayerStage($DefaultZIndex: 1) {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: var(--layer-z-index, #{$DefaultZIndex});
+    pointer-events: none;
+    overflow: hidden;
+    contain: layout style paint;
+
+    :root.Block-DarkMode-Extensions & {
+        color-scheme: inherit !important;
+    }
+}
+
+
+
+@mixin PauseWhenInactive {
+    :host-context(.Is-Scrolling) &,
+    :host-context(.Is-Hidden) &,
+    :host-context(.Is-Idle) &,
+    :root.Effects--Reduced &,
+    :root:has(.Modal-Overlay-Container) &,
+    :root:has(.Filter-Sidebar-Overlay) &,
+    body[style*="overflow: hidden"] & {
+        animation-play-state: paused !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        animation: none !important;
+        transform: none !important;
+    }
+}

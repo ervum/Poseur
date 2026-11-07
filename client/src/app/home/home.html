@@ -1,0 +1,57 @@
+<div class = "Main Wrapper">
+    <div
+        class = "Section-Wrapper Hero-Wrapper"
+        FancySlideUpDown>
+
+        <FancyContainer class = "Content-Section-Wrapper Hero-Surface">
+            <div class = "Content-Section Hero-Content">
+                <div class = "Hero-Eyebrow">
+                    <span class = "Hero-Eyebrow-Pulse"></span>
+                    <span
+                        class = "Text-Eyebrow"
+                        [FancyTypewriter] = "InterfaceService.T().HeroEyebrow">
+                    </span>
+                </div>
+
+                <h1 class = "Hero-Headline Text-Display">
+                    <span [FancyTypewriter] = "InterfaceService.T().HeroHeadline"></span>
+                    <span
+                        class = "Text-Gradient"
+                        [FancyTypewriter] = "InterfaceService.T().HeroHeadlineAccent">
+                    </span>
+                </h1>
+
+                <p
+                    class = "Hero-Tagline"
+                    [FancyTypewriter] = "InterfaceService.T().HeroTagline">
+                </p>
+
+                <div class = "Hero-Actions">
+                    <FancyButton
+                        class = "Hero-Action-Primary"
+                        Style = "Accent"
+                        Icon = "next-arrow"
+                        [Label] = "InterfaceService.T().HeroPrimaryAction"
+                        (Up) = "HandlePrimaryAction()">
+                    </FancyButton>
+
+                    <FancyButton
+                        class = "Hero-Action-Secondary"
+                        Style = "Backgroundless"
+                        Icon = "envelope"
+                        [Label] = "InterfaceService.T().HeroSecondaryAction"
+                        (Up) = "HandleSecondaryAction()">
+                    </FancyButton>
+                </div>
+
+                <ul
+                    class = "Hero-Stack"
+                    [attr.aria-label] = "InterfaceService.T().HeroStackLabel">
+                    @for (Technology of TechnologyStack; track $index) {
+                        <li class = "Hero-Stack-Chip">{{ Technology }}</li>
+                    }
+                </ul>
+            </div>
+        </FancyContainer>
+    </div>
+</div>

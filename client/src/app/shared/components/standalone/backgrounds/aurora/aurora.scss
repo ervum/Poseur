@@ -1,0 +1,69 @@
+@use '../../../../styles' as s;
+@use '../shared/background-layer' as layer;
+
+
+
+.Aurora-Container {
+    @include layer.ProceduralLayerStage(2);
+    --aurora-intensity-scale: 0.75;
+    opacity: 0;
+    animation: Aurora-FadeIn 2.2s var(--easing-standard) forwards;
+}
+
+@keyframes Aurora-FadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.Aurora-Sphere {
+    --parallax-x: calc(var(--pointer-x, 0) * var(--sphere-speed, 10) * 0.4vw);
+    --parallax-y: calc(var(--pointer-y, 0) * var(--sphere-speed, 10) * 0.4vh);
+    --rotation: calc(var(--pointer-angle, 0) * var(--sphere-rotationspeed, 0.2) * 1rad);
+    --scale: calc(1 + var(--pointer-distance, 0) * var(--sphere-scalespeed, 0.1));
+
+    position: absolute;
+    container-type: size;
+    border-radius: var(--radius-pill);
+    filter: blur(50px);
+    pointer-events: none;
+    animation: Aurora-BlobFloat 8s var(--easing-standard) infinite;
+
+    transform:
+        translate(var(--parallax-x), var(--parallax-y))
+        rotate(var(--rotation))
+        scale(var(--scale));
+    opacity: clamp(
+        0.08,
+        calc(var(--sphere-opacity, 0.5) * var(--aurora-intensity-scale, 0.75) * (1 + var(--pointer-distance, 0) * 0.15)),
+        0.72
+    );
+
+    :root.Theme--Secondary & {
+        opacity: clamp(
+            0.04,
+            calc(var(--sphere-opacity, 0.5) * var(--aurora-intensity-scale, 0.75) * 0.36),
+            0.26
+        );
+    }
+
+    :root.Effects--Reduced & {
+        filter: none !important;
+        animation: none !important;
+        transform: none !important;
+    }
+
+    @include layer.PauseWhenInactive;
+}
+
+.Aurora-Container--Static .Aurora-Sphere {
+    animation-play-state: paused !important;
+    transform: none !important;
+}
+
+.Aurora-Container--Evolving .Aurora-Sphere {
+    animation-duration: 5.5s;
+}

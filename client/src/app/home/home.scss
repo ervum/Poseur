@@ -1,0 +1,179 @@
+@use '../shared/styles/' as s;
+
+
+
+.Main {
+    @include s.PageShell;
+}
+
+.Hero-Wrapper {
+    width: min(820px, 100%);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.Hero-Surface {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow: hidden;
+
+    @include s.GlassSurface(var(--space-8) var(--space-8));
+}
+
+.Hero-Content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-5);
+
+    width: 100%;
+    position: relative;
+    z-index: 5;
+
+    @include s.Compact {
+        align-items: center;
+        text-align: center;
+    }
+}
+
+.Hero-Eyebrow {
+    display: inline-flex;
+    flex-direction: row;
+    place-items: center;
+    gap: var(--space-2);
+
+    padding: 6px 14px;
+    border-radius: 999px;
+
+    background-color: var(--accent-brand-soft);
+    border: 1px solid var(--border-main);
+}
+
+.Hero-Eyebrow-Pulse {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background-color: var(--accent-brand);
+    box-shadow: 0 0 12px var(--accent-brand);
+    animation: Hero-Pulse 2.4s ease-in-out infinite;
+
+    :root.Is-Idle &,
+    :root.Is-Scrolling &,
+    :root.Is-Hidden &,
+    :root.Is-Transitioning &,
+    :root:has(.FancyDropdown--Open) & {
+        animation-play-state: paused;
+    }
+
+    :root.Effects--Reduced & {
+        animation: none;
+    }
+}
+
+@keyframes Hero-Pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.25);
+        opacity: 0.65;
+    }
+}
+
+.Hero-Headline {
+    margin: 0;
+    color: var(--text-main);
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: 0.26em;
+
+    @include s.Compact {
+        justify-content: center;
+    }
+}
+
+.Hero-Tagline {
+    margin: 0;
+    max-width: 58ch;
+    font-size: clamp(1rem, 0.5vw + 0.92rem, 1.15rem);
+    line-height: 1.65;
+    color: var(--text-muted);
+}
+
+.Hero-Actions {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    width: 100%;
+    margin-top: var(--space-2);
+
+    @include s.Compact {
+        flex-direction: column;
+        place-items: stretch;
+    }
+}
+
+.Hero-Action-Primary,
+.Hero-Action-Secondary {
+    --button-width: 230px;
+    width: 230px;
+    height: 52px;
+
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+
+    @include s.Compact {
+        --button-width: 100%;
+        width: 100%;
+    }
+}
+
+.Hero-Stack {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+
+    list-style: none;
+    padding: var(--space-4) 0 0 0;
+    margin: var(--space-2) 0 0 0;
+    width: 100%;
+    border-top: 1px solid var(--border-main);
+
+    @include s.Compact {
+        place-content: center;
+    }
+}
+
+.Hero-Stack-Chip {
+    padding: 6px 14px;
+    border-radius: 999px;
+
+    font-family: var(--font-display);
+    font-size: var(--fontsize-small);
+    font-weight: 500;
+    letter-spacing: 0.03em;
+
+    color: var(--text-muted);
+    background-color: var(--surface-background-hover);
+    border: 1px solid var(--border-main);
+
+    transition:
+        transform var(--duration-standard) var(--easing-standard),
+        border-color var(--duration-standard) var(--easing-standard),
+        color var(--duration-standard) var(--easing-standard);
+
+    &:hover {
+        transform: translateY(-2px);
+        border-color: var(--accent-brand);
+        color: var(--text-main);
+    }
+}

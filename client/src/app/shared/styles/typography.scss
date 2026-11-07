@@ -1,0 +1,79 @@
+@use 'variables' as v;
+
+
+
+/* --- Typography System --- */
+$Font-Primary: 'Inter', system-ui, -apple-system, sans-serif;
+
+
+
+/* --- Global Base Styles --- */
+body {
+    font-family: $Font-Primary;
+    font-size: var(--fontsize-body);
+    line-height: 1.6;
+    margin: 0%;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'cv11', 'ss01';
+}
+
+input,
+button {
+    font-family: inherit;
+}
+
+button {
+    -webkit-appearance: none;
+    appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+
+
+/* --- Shared Text Styles --- */
+.Text-Display {
+    font-family: var(--font-display);
+    font-size: var(--fontsize-display);
+    font-weight: 700;
+    line-height: 1.06;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+}
+
+.Text-Title {
+    font-family: var(--font-display);
+    font-size: var(--fontsize-title);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+}
+
+.Text-Eyebrow {
+    font-family: var(--font-display);
+    font-size: var(--fontsize-small);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.Text-Gradient {
+    background: linear-gradient(125deg, var(--text-main) 15%, var(--accent-brand) 95%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.Text-Standard {
+    font-size: var(--fontsize-standard);
+}
+
+.Text-Small {
+    font-size: var(--fontsize-small);
+}

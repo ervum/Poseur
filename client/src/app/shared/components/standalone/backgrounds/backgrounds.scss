@@ -1,0 +1,25 @@
+@use '../../../styles' as s;
+
+
+
+:host {
+    --pointer-x: 0;
+    --pointer-y: 0;
+    --pointer-distance: 0;
+    --pointer-angle: 0;
+    --pointer-x-pct: 50%;
+    --pointer-y-pct: 40%;
+    --mouse-x: 0;
+    --mouse-y: 0;
+    --mouse-distance: 0;
+    --mouse-angle: 0;
+
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    contain: strict;
+}

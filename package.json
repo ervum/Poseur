@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "packageManager": "pnpm@10.25.0",
   "workspaces": [
-    "portfolio-client",
-    "portfolio-server",
+    "client",
+    "server",
     "packages/*"
   ],
   "devDependencies": {
@@ -14,10 +14,10 @@
   "scripts": {
     "install:all": "pnpm -w install",
     "build": "pnpm -r build",
-    "db:up": "node scripts/db-up.mjs",
+    "db:up": "node database-up.mjs",
     "packages:watch": "pnpm --filter \"@ervum/*\" --parallel watch",
-    "server:start:dev": "pnpm db:up && pnpm --filter \"portfolio-server\" start:dev",
-    "client:start": "pnpm --filter \"portfolio-client\" start",
+    "server:start:dev": "pnpm db:up && pnpm --filter \"server\" start:dev",
+    "client:start": "pnpm --filter \"client\" start",
     "dev:all": "pnpm db:up && concurrently \"pnpm packages:watch\" \"pnpm server:start:dev\" \"pnpm client:start\""
   }
 }

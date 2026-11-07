@@ -1,0 +1,97 @@
+@use '../../../styles' as s;
+
+
+
+:host {
+    display: inline-flex;
+    cursor: pointer;
+
+    width: var(--minibutton-width, 44px);
+    height: var(--minibutton-height, 44px);
+
+    container-type: size;
+}
+
+:host(.Disabled) {
+    cursor: not-allowed !important;
+    opacity: 0.4;
+
+    .Minibutton-IconContainer {
+        cursor: not-allowed !important;
+        pointer-events: none;
+    }
+}
+
+:host(.Active) {
+    .Minibutton-IconContainer {
+        border-color: var(--accent-brand);
+        background-color: var(--accent-brand-soft);
+        color: var(--accent-brand);
+        box-shadow: 0 0 14px -2px var(--accent-brand-glow);
+
+        .Minibutton-Icon {
+            @include s.IconFilled;
+        }
+    }
+}
+
+
+
+.Minibutton-IconContainer {
+    @include s.CreateTransition(transform, border-radius, background-color, border-color, box-shadow, color);
+
+    display: flex;
+    flex-direction: row;
+    place-content: center;
+    place-items: center;
+    gap: var(--space-2);
+
+    width: var(--minibutton-width, 44px);
+    height: var(--minibutton-height, 44px);
+    padding: 0 var(--space-3);
+    box-sizing: border-box;
+    border-radius: var(--radius-standard);
+
+    overflow: hidden;
+    outline: none;
+
+    &:hover, &:focus-visible, &:focus, &:active {
+        transform: translateY(var(--hover-movey)) scale(var(--hover-scale-big));
+        border-color: var(--accent-brand);
+        border-radius: var(--radius-pill);
+
+        .Minibutton-Icon {
+            @include s.IconFilled;
+        }
+    }
+}
+
+.Minibutton-Icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+
+    @include s.DualStateIcon(currentColor);
+
+    &.Is-Filled {
+        @include s.IconFilled;
+    }
+
+    &.Minibutton-Icon--Entering {
+        animation: Icon-EnterLeft var(--duration-standard) var(--easing-standard) forwards;
+    }
+    &.Minibutton-Icon--Exiting {
+        animation: Icon-ExitRight var(--duration-standard) var(--easing-standard) forwards;
+    }
+    &.Minibutton-Icon--OffScreen {
+        transform: translateX(50px);
+    }
+}
+
+.Minibutton-Label {
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+
+    transition: color var(--duration-standard) var(--easing-standard);
+}

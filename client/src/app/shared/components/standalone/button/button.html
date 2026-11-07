@@ -1,0 +1,56 @@
+<div
+  class = "FancyButton-Wrapper"
+
+  [ngClass] = "GetWrapperClasses()"
+
+  [ngStyle] = "GetWrapperStyles">
+  <FancyContainer
+    #ButtonElement
+
+    role = "button"
+
+    tabindex = "0"
+
+    class = "FancyButton"
+
+    [Type] = "EffectiveType()"
+
+    [ngClass] = "GetButtonClasses()"
+
+    (pointerenter) = "OnHover()"
+    (pointerleave) = "OnUnhover()"
+
+    (pointercancel) = "OnCancel()"
+
+    (pointerdown) = "OnDown($event)"
+    (pointerup) = "OnUp($event)"
+
+    (keydown) = "OnKeyDown($event)"
+    (keyup) = "OnKeyUp()"
+
+    (wheel) = "OnWheel()"
+
+    (focus) = "OnFocus()"
+    (blur) = "OnUnfocus()">
+    <div 
+      class = "FancyButton-Label-Wrapper"
+      [ngClass] = "{'FancyButton-Label-Wrapper--Centered': !HasIcon()}">
+      <span 
+        class = "FancyButton-Label"
+        [FancyTypewriter] = "Label() ?? ''">
+      </span>
+    </div>
+
+    @if (HasIcon() && Icon() !== '') {
+      <div
+        class = "FancyButton-Icon"
+
+        [ngStyle] = "GetIconStyles"
+
+        [ngClass] = "GetIconClasses()"
+
+        (animationend) = "OnIconAnimationEnd()">
+      </div>
+    }
+  </FancyContainer>
+</div>

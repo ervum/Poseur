@@ -1,0 +1,87 @@
+@use 'variables' as v;
+
+
+
+/* --- Responsive Breakpoint Mixin --- */
+@mixin Compact {
+    @media (max-width: v.$Breakpoint-Compact) {
+        @content;
+    }
+}
+
+
+
+/* --- Shared Page & Surface Mixins --- */
+@mixin PageShell {
+    min-height: 100dvh;
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    place-items: center;
+
+    position: relative;
+    z-index: 10;
+
+    box-sizing: border-box;
+    padding:
+        calc(var(--topbar-height) + var(--space-6))
+        var(--space-5)
+        var(--space-6)
+        var(--space-5);
+
+    background: transparent;
+    overflow-x: hidden;
+
+    @include Compact {
+        padding:
+            calc(var(--topbar-height) + var(--space-5))
+            var(--space-4)
+            var(--space-6)
+            var(--space-4);
+    }
+}
+
+@mixin GlassSurface($Padding: var(--space-7) var(--space-7)) {
+    position: relative;
+
+    border-radius: var(--radius-surface);
+    padding: $Padding;
+    box-sizing: border-box;
+
+    background-color: var(--surface-background);
+    -webkit-backdrop-filter: blur(var(--container-blur)) saturate(140%);
+    backdrop-filter: blur(var(--container-blur)) saturate(140%);
+
+    border: 1px solid var(--border-main);
+    box-shadow: var(--elevation-surface);
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: -1px;
+        z-index: 0;
+
+        border-radius: inherit;
+        padding: 1px;
+        background: linear-gradient(180deg, var(--border-strong), transparent 65%);
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+
+        pointer-events: none;
+    }
+
+    @include Compact {
+        padding: var(--space-6) var(--space-5);
+        border-radius: 22px;
+    }
+}
+
+@mixin FocusRing {
+    &:focus-visible {
+        outline: none;
+        box-shadow: var(--focus-ring);
+    }
+}

@@ -1,0 +1,117 @@
+<div class = "Background-Designer-Panel">
+    <div class = "Designer-Top-Bar">
+        <div class = "Designer-Mode-Row">
+            <div class = "Mode-Header-Row">
+                <span class = "Mode-Label">{{ InterfaceService.T().BackgroundModeLabel }}</span>
+                <span class = "Active-Layers-Badge">
+                    {{ ActiveLayerCount() }} {{ InterfaceService.T().BackgroundActiveLayersCountSuffix }}
+                </span>
+            </div>
+
+            <FancyMultibutton
+                class = "Designer-Mode-Multibutton"
+                [Items] = "ModeMultibuttonItems()"
+                [SelectedIndex] = "SelectedModeIndex()"
+                [ShowHighlight] = "true"
+                (SelectedIndexChange) = "OnSelectModeIndex($event)" />
+        </div>
+
+        <div class = "Designer-Actions-Row">
+            <FancyMinibutton
+                class = "Designer-Action-Button"
+                [Icon] = "'shuffle'"
+                [Label] = "InterfaceService.T().BackgroundRerollButtonLabel"
+                [Animated] = "false"
+                [Typewriter] = "false"
+                (Activate) = "OnReroll()" />
+
+            <FancyMinibutton
+                class = "Designer-Action-Button"
+                [Icon] = "'refresh'"
+                [Label] = "InterfaceService.T().BackgroundResetButtonLabel"
+                [Animated] = "false"
+                [Typewriter] = "false"
+                (Activate) = "OnReset()" />
+        </div>
+    </div>
+
+    @if (PerformanceService.IsReducedEffects()) {
+        <div class = "Reduced-Effects-Notice">
+            {{ InterfaceService.T().BackgroundReducedEffectsNotice }}
+        </div>
+    }
+
+    <div class = "Designer-Layers-Grid">
+        @for (Descriptor of LayerDescriptorsList; track Descriptor.ID) {
+            @let Settings = GetLayerSettings(Descriptor.ID);
+            <FancyContainer
+                class = "Layer-Config-Card"
+                [class.Layer-Config-Card--Active] = "Settings.Enabled">
+                <div class = "Layer-Card-Header">
+                    <div class = "Layer-Identity">
+                        <div class = "Layer-Icon-Badge">
+                            <FancyIcon
+                                [Name] = "Descriptor.Icon"
+                                [Variant] = "Settings.Enabled ? 'Filled' : 'Stroked'"
+                                [Size] = "18" />
+                        </div>
+
+                        <div class = "Layer-Text-Group">
+                            <span class = "Layer-Title">{{ GetLayerName(Descriptor) }}</span>
+                            <span class = "Layer-Description">{{ GetLayerDescription(Descriptor) }}</span>
+                        </div>
+                    </div>
+
+                    <FancyToggle
+                        class = "Layer-Enable-Toggle"
+                        [Checked] = "Settings.Enabled"
+                        (CheckedChange) = "OnToggleLayer(Descriptor.ID, $event)" />
+                </div>
+
+                @if (Settings.Enabled) {
+                    <div class = "Layer-Card-Controls">
+                        <div class = "Layer-Control-Block">
+                            <span class = "Control-Label">{{ InterfaceService.T().BackgroundMotionLabel }}</span>
+                            <FancyMultibutton
+                                class = "Layer-Motion-Multibutton"
+                                [Items] = "MotionItems()"
+                                [SelectedIndex] = "GetMotionIndex(Settings.Motion)"
+                                [ShowHighlight] = "true"
+                                (SelectedIndexChange) = "OnSelectMotionIndex(Descriptor.ID, $event)" />
+                        </div>
+
+                        <div class = "Layer-Sliders-Row">
+                            <div class = "Layer-Control-Block">
+                                <div class = "Control-Label-Row">
+                                    <span class = "Control-Label">{{ InterfaceService.T().BackgroundIntensityLabel }}</span>
+                                    <span class = "Control-Value-Badge">{{ Settings.Intensity }}%</span>
+                                </div>
+                                <FancySlider
+                                    [Min] = "Descriptor.IntensityBounds.Minimum"
+                                    [Max] = "Descriptor.IntensityBounds.Maximum"
+                                    [Step] = "Descriptor.IntensityBounds.Step"
+                                    [Value] = "Settings.Intensity"
+                                    [ShowScaleMarkers] = "false"
+                                    (ValueChange) = "OnChangeIntensity(Descriptor.ID, $event)" />
+                            </div>
+
+                            <div class = "Layer-Control-Block">
+                                <div class = "Control-Label-Row">
+                                    <span class = "Control-Label">{{ InterfaceService.T().BackgroundDensityLabel }}</span>
+                                    <span class = "Control-Value-Badge">{{ Settings.Density }}%</span>
+                                </div>
+                                <FancySlider
+                                    [Min] = "Descriptor.DensityBounds.Minimum"
+                                    [Max] = "Descriptor.DensityBounds.Maximum"
+                                    [Step] = "Descriptor.DensityBounds.Step"
+                                    [Value] = "Settings.Density"
+                                    [ShowScaleMarkers] = "false"
+                                    (ValueChange) = "OnChangeDensity(Descriptor.ID, $event)" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </FancyContainer>
+        }
+    </div>
+</div>

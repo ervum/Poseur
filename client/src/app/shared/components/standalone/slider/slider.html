@@ -1,0 +1,36 @@
+<div class = "Fancy-Slider-Wrapper">
+    <div
+        #TrackContainerElement
+        class = "Fancy-Slider-Track-Container"
+        tabindex = "0"
+        [class.Is-Focused] = "IsActiveSlider()"
+        (pointerdown) = "OnTrackPointerDown($event)"
+        (pointermove) = "OnTrackPointerMove($event)"
+        (pointerup) = "OnTrackPointerUp($event)"
+        (pointercancel) = "OnTrackPointerUp($event)"
+        (focus) = "OnFocus()"
+        (blur) = "OnBlur()">
+        <input
+            type = "range"
+            class = "Fancy-Slider-Input"
+            [min] = "Min()"
+            [max] = "Max()"
+            step = "any"
+            [value] = "DisplayValue()"
+            [ngStyle] = "TrackBackgroundStyle()"
+            tabindex = "-1"
+            aria-hidden = "true" />
+        <div
+            class = "Custom-Slider-Thumb"
+            [ngStyle] = "CustomThumbPositionStyle()">
+        </div>
+    </div>
+
+    @if (ShowScaleMarkers() && ScaleMarkers().length > 0) {
+        <div class = "Slider-Scale-Markers">
+            @for (Marker of ScaleMarkers(); track $index) {
+                <span>{{ Marker }}</span>
+            }
+        </div>
+    }
+</div>

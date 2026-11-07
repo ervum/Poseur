@@ -1,0 +1,12 @@
+<div
+    class = "Mesh-Layer"
+    [class.Mesh-Layer--Ambient] = "Motion() === 'Ambient'"
+    [class.Mesh-Layer--Evolving] = "Motion() === 'Evolving'"
+    [style.opacity] = "StageOpacity()">
+    @for (Orb of Orbs(); track Orb.ID) {
+        <div
+            class = "Mesh-Wash-Orb"
+            [ngStyle] = "Orb.Styles">
+        </div>
+    }
+</div>

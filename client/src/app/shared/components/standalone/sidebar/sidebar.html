@@ -1,0 +1,57 @@
+@if (IsOpen() || IsClosing()) {
+    <div
+        class = "FancySidebar-Overlay Filter-Sidebar-Overlay"
+        [class.Closing] = "IsClosing()"
+        [class.Viewport-Mode] = "Mode() === 'Viewport'"
+        [class.Container-Mode] = "Mode() === 'Container'">
+
+        @if (ShowBackdrop()) {
+            <div
+                class = "FancySidebar-Backdrop"
+                (click) = "HandleBackdropClick()">
+            </div>
+        }
+
+        <aside
+            class = "FancySidebar-Drawer"
+            [class.Closing] = "IsClosing()"
+            [class.Drawer--Right] = "Side() === 'Right'"
+            [class.Drawer--Left] = "Side() === 'Left'"
+            [class.Drawer--Top] = "Side() === 'Top'"
+            [class.Drawer--Bottom] = "Side() === 'Bottom'"
+            [style.width] = "Width() ?? null"
+            [style.height] = "Height() ?? null">
+
+            <header class = "FancySidebar-Header">
+                <ng-content select = "[SidebarHeader]">
+                    <div class = "Default-Header-Row">
+                        @if (Title()) {
+                            <h3
+                                class = "Default-Sidebar-Title"
+                                [FancyTypewriter] = "Title() ?? ''">
+                            </h3>
+                        }
+
+                        @if (ShowCloseButton()) {
+                            <FancyMinibutton
+                                class = "Default-Close-Button"
+                                Icon = "crossmark"
+                                [Animated] = "false"
+                                (Activate) = "Close()">
+                            </FancyMinibutton>
+                        }
+                    </div>
+                </ng-content>
+            </header>
+
+            <div class = "FancySidebar-Body">
+                <ng-content select = "[SidebarBody]"></ng-content>
+                <ng-content></ng-content>
+            </div>
+
+            <footer class = "FancySidebar-Footer">
+                <ng-content select = "[SidebarFooter]"></ng-content>
+            </footer>
+        </aside>
+    </div>
+}

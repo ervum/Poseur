@@ -1,0 +1,80 @@
+@use 'sass:list';
+@use 'variables' as v;
+
+
+
+@function IconURL($Name, $Variant: 'Stroked') {
+    @if $Variant == 'Filled' {
+        @return url('#{v.$Icons-Base-Path}#{$Name}#{v.$Icon-Filled-Suffix}.svg');
+    }
+
+    @return url('#{v.$Icons-Base-Path}#{$Name}.svg');
+}
+
+@mixin CreateTransition($Properties ...) {
+    $Duration: var(--duration-standard);
+    $Easing: var(--easing-standard);
+
+    $Transitions: ();
+
+    @each $Property in $Properties {
+        $SingleTransition: $Property $Duration $Easing;
+
+        $Transitions: list.append($Transitions, $SingleTransition, comma);
+    }
+
+    transition: $Transitions;
+}
+
+@mixin SynchronizeStates($Selector) {
+    #{$Selector}, 
+    ~ .FancyButton-Wrapper.FancyButton--Inverted #{$Selector} {
+        @content;
+    }
+}
+
+@mixin MaskedIcon($URL, $Color: white) {
+    -webkit-mask-image: $URL;
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+
+    mask-image: $URL;
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+
+    background-color: $Color;
+}
+
+@mixin DualStateIcon($Color: currentColor) {
+    position: relative;
+    background-color: transparent;
+
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+
+        transition: opacity var(--duration-icon-swap) var(--easing-standard);
+    }
+
+    &::before {
+        @include MaskedIcon(var(--icon-stroked), $Color);
+
+        opacity: var(--icon-stroked-opacity, 1);
+    }
+
+    &::after {
+        @include MaskedIcon(var(--icon-filled), $Color);
+
+        opacity: var(--icon-filled-opacity, 0);
+    }
+}
+
+@mixin IconFilled {
+    --icon-stroked-opacity: 0;
+    --icon-filled-opacity: 1;
+}

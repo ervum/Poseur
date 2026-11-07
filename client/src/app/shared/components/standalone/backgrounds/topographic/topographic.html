@@ -1,0 +1,22 @@
+<div
+    class = "Topographic-Layer"
+    [class.Topographic-Layer--Ambient] = "Motion() === 'Ambient'"
+    [class.Topographic-Layer--Evolving] = "Motion() === 'Evolving'"
+    [style.opacity] = "StageOpacity()">
+    @if (Motion() === 'Evolving') {
+        <canvas #EvolvingCanvas class = "Topographic-Canvas"></canvas>
+    } @else {
+        <svg
+            class = "Topographic-SVG"
+            [attr.viewBox] = "'0 0 ' + ViewWidth + ' ' + ViewHeight"
+            preserveAspectRatio = "xMidYMid slice"
+            aria-hidden = "true">
+            @for (Contour of Contours(); track Contour.LevelIndex) {
+                <path
+                    class = "Topographic-Path"
+                    [class.Topographic-Path--Index] = "Contour.IsIndexContour"
+                    [attr.d] = "Contour.PathData" />
+            }
+        </svg>
+    }
+</div>

@@ -1,0 +1,27 @@
+{
+  "name": "@ervum/shared",
+  "version": "1.0.0",
+  "description": "Shared client/server configuration values",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "rimraf ./dist",
+    "watch": "tsc -b --watch"
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@ervum/types": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "npm-watch": "^0.13.0",
+    "rimraf": "^5.0.0",
+    "typescript": "^5.9.2"
+  }
+}

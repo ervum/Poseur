@@ -1,0 +1,245 @@
+@use '../../../styles' as s;
+
+
+
+:host {
+    display: contents;
+}
+
+
+
+.FancySidebar-Overlay {
+    inset: 0;
+    display: flex;
+    overflow: hidden;
+    pointer-events: none;
+
+    &.Viewport-Mode {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        z-index: 2000;
+    }
+
+    &.Container-Mode {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 100;
+    }
+
+    :host(.Side--Right) & {
+        justify-content: flex-end;
+    }
+    :host(.Side--Left) & {
+        justify-content: flex-start;
+    }
+    :host(.Side--Top) & {
+        align-items: flex-start;
+    }
+    :host(.Side--Bottom) & {
+        align-items: flex-end;
+    }
+
+    &.Closing {
+        .FancySidebar-Backdrop {
+            animation: FadeOutBackdrop 0.32s var(--easing-standard) forwards;
+        }
+    }
+}
+
+.FancySidebar-Backdrop {
+    position: absolute;
+    inset: 0;
+    background-color: var(--shadow-strong);
+    will-change: opacity;
+    animation: FadeInBackdrop 0.32s var(--easing-standard) forwards;
+    pointer-events: auto;
+}
+
+.FancySidebar-Drawer {
+    position: relative;
+    z-index: 2001;
+
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+
+    background-color: var(--surface-background);
+    -webkit-backdrop-filter: blur(var(--container-blur)) saturate(150%);
+    backdrop-filter: blur(var(--container-blur)) saturate(150%);
+    box-shadow: var(--elevation-surface);
+    color: var(--text-main);
+
+    will-change: transform;
+    pointer-events: auto;
+
+    &.Drawer--Right {
+        width: 430px;
+        max-width: 92vw;
+        height: 100%;
+        border-left: 1px solid var(--border-main);
+        animation: SlideInRight 0.32s var(--easing-standard) forwards;
+
+        &.Closing {
+            animation: SlideOutRight 0.32s var(--easing-standard) forwards;
+        }
+    }
+
+    &.Drawer--Left {
+        width: 430px;
+        max-width: 92vw;
+        height: 100%;
+        border-right: 1px solid var(--border-main);
+        animation: SlideInLeft 0.32s var(--easing-standard) forwards;
+
+        &.Closing {
+            animation: SlideOutLeft 0.32s var(--easing-standard) forwards;
+        }
+    }
+
+    &.Drawer--Top {
+        width: 100%;
+        height: 380px;
+        max-height: 80vh;
+        border-bottom: 1px solid var(--border-main);
+        animation: SlideInTop 0.32s var(--easing-standard) forwards;
+
+        &.Closing {
+            animation: SlideOutTop 0.32s var(--easing-standard) forwards;
+        }
+    }
+
+    &.Drawer--Bottom {
+        width: 100%;
+        height: 380px;
+        max-height: 80vh;
+        border-top: 1px solid var(--border-main);
+        animation: SlideInBottom 0.32s var(--easing-standard) forwards;
+
+        &.Closing {
+            animation: SlideOutBottom 0.32s var(--easing-standard) forwards;
+        }
+    }
+}
+
+.FancySidebar-Header {
+    position: relative;
+    padding: var(--space-5) var(--space-5);
+    border-bottom: 1px solid var(--border-main);
+
+    &:has(.Default-Header-Row:empty) {
+        display: none;
+    }
+
+    .Default-Header-Row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        place-items: center;
+        width: 100%;
+
+        .Default-Sidebar-Title {
+            margin: 0;
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text-main);
+        }
+
+        .Default-Close-Button {
+            --minibutton-width: 36px;
+            --minibutton-height: 36px;
+        }
+    }
+}
+
+.FancySidebar-Body {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--scrollbar-thumb);
+        border-radius: 999px;
+    }
+
+    :host(.FancySidebar--Container) & {
+        padding: 0;
+        overflow-x: hidden;
+    }
+}
+
+.FancySidebar-Footer {
+    position: relative;
+    padding: var(--space-4) var(--space-5);
+    border-top: 1px solid var(--border-main);
+
+    &:empty,
+    &:not(:has(*)) {
+        display: none;
+    }
+}
+
+@keyframes FadeInBackdrop {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes FadeOutBackdrop {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes SlideInRight {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
+@keyframes SlideOutRight {
+    from { transform: translateX(0); }
+    to { transform: translateX(100%); }
+}
+
+@keyframes SlideInLeft {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+@keyframes SlideOutLeft {
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); }
+}
+
+@keyframes SlideInTop {
+    from { transform: translateY(-100%); }
+    to { transform: translateY(0); }
+}
+
+@keyframes SlideOutTop {
+    from { transform: translateY(0); }
+    to { transform: translateY(-100%); }
+}
+
+@keyframes SlideInBottom {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
+@keyframes SlideOutBottom {
+    from { transform: translateY(0); }
+    to { transform: translateY(100%); }
+}

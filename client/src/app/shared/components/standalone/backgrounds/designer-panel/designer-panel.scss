@@ -1,0 +1,193 @@
+@use '../../../../styles' as s;
+
+
+
+.Background-Designer-Panel {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.Designer-Top-Bar {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.Designer-Mode-Row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.Mode-Header-Row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.Mode-Label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+}
+
+.Active-Layers-Badge {
+    font-size: 0.74rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: var(--accent-brand-soft, rgba(139, 124, 255, 0.16));
+    border: 1px solid var(--accent-brand-glow, rgba(139, 124, 255, 0.36));
+    color: var(--accent-brand, #8b7cff);
+}
+
+.Designer-Mode-Multibutton {
+    width: 100%;
+    height: 40px;
+}
+
+.Designer-Actions-Row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.Designer-Action-Button {
+    --minibutton-width: 100%;
+    --minibutton-height: 36px;
+    width: 100%;
+    height: 36px;
+}
+
+.Reduced-Effects-Notice {
+    font-size: 0.78rem;
+    line-height: 1.4;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: var(--accent-brand-soft, rgba(139, 124, 255, 0.12));
+    border: 1px solid var(--accent-brand-glow, rgba(139, 124, 255, 0.28));
+    color: var(--text-muted);
+}
+
+.Designer-Layers-Grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.Layer-Config-Card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    border: 1px solid var(--border-main);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &.Layer-Config-Card--Active {
+        border-color: var(--accent-brand-glow, rgba(139, 124, 255, 0.42));
+        box-shadow: 0 4px 18px var(--shadow-standard, rgba(0, 0, 0, 0.16));
+    }
+}
+
+.Layer-Card-Header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.Layer-Identity {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    min-width: 0;
+    flex: 1;
+}
+
+.Layer-Icon-Badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: var(--accent-brand-soft, rgba(139, 124, 255, 0.14));
+    border: 1px solid var(--accent-brand-glow, rgba(139, 124, 255, 0.30));
+    color: var(--accent-brand, #8b7cff);
+    flex-shrink: 0;
+}
+
+.Layer-Text-Group {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.Layer-Title {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.Layer-Description {
+    font-size: 0.75rem;
+    line-height: 1.35;
+    color: var(--text-muted);
+}
+
+.Layer-Card-Controls {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-main);
+}
+
+.Layer-Control-Block {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.Layer-Motion-Multibutton {
+    width: 100%;
+    height: 36px;
+}
+
+.Layer-Sliders-Row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+
+    @media (max-width: 520px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.Control-Label-Row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+}
+
+.Control-Label {
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.Control-Value-Badge {
+    font-size: 0.74rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--accent-brand, #8b7cff);
+}

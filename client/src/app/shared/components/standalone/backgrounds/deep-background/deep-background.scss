@@ -1,0 +1,20 @@
+@use '../../../../styles' as s;
+
+
+
+.DeepBackground-Container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    background-color: var(--background-colour-1, var(--base-background));
+    overflow: hidden;
+    pointer-events: none;
+    transition: background-color var(--duration-standard) var(--easing-standard);
+
+    :root.Block-DarkMode-Extensions & {
+        color-scheme: inherit;
+    }
+}

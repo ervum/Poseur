@@ -1,0 +1,50 @@
+<DeepBackground />
+
+@if (MeshLayer().Enabled) {
+    <MeshBackgroundLayer
+        [Motion] = "MeshLayer().Motion"
+        [Intensity] = "MeshLayer().Intensity"
+        [Density] = "MeshLayer().Density" />
+}
+
+@if (AuroraLayer().Enabled) {
+    <AuroraBackgroundLayer
+        [Motion] = "AuroraLayer().Motion"
+        [Intensity] = "AuroraLayer().Intensity"
+        [Density] = "AuroraLayer().Density" />
+}
+
+@if (TopographicLayer().Enabled) {
+    <TopographicBackgroundLayer
+        [Motion] = "TopographicLayer().Motion"
+        [Intensity] = "TopographicLayer().Intensity"
+        [Density] = "TopographicLayer().Density" />
+}
+
+@if (CadastralLayer().Enabled) {
+    <CadastralBackgroundLayer
+        [Motion] = "CadastralLayer().Motion"
+        [Intensity] = "CadastralLayer().Intensity"
+        [Density] = "CadastralLayer().Density" />
+}
+
+@if (BlueprintLayer().Enabled) {
+    <BlueprintBackgroundLayer
+        [Motion] = "BlueprintLayer().Motion"
+        [Intensity] = "BlueprintLayer().Intensity"
+        [Density] = "BlueprintLayer().Density" />
+}
+
+@if (SilkLayer().Enabled) {
+    <SilkBackgroundLayer
+        [Motion] = "SilkLayer().Motion"
+        [Intensity] = "SilkLayer().Intensity"
+        [Density] = "SilkLayer().Density" />
+}
+
+@if (SpotlightLayer().Enabled) {
+    <SpotlightBackgroundLayer
+        [Motion] = "SpotlightLayer().Motion"
+        [Intensity] = "SpotlightLayer().Intensity"
+        [Density] = "SpotlightLayer().Density" />
+}

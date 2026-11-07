@@ -1,0 +1,90 @@
+<Backgrounds/>
+
+<header class = "Shell-TopBar">
+    <div class = "Shell-TopBar-Cluster Shell-TopBar-Cluster--Start">
+        <FancyMinibutton
+            class = "Back-Minibutton"
+            [class.Is-Hidden] = "SelectedIndex() === 0"
+            [Tabindex] = "SelectedIndex() === 0 ? -1 : 0"
+            Icon = "shaftless-next-arrow"
+            (click) = "NavigateBack()">
+        </FancyMinibutton>
+
+        <a
+            class = "Shell-Brand"
+            href = "/home"
+            (click) = "NavigateHome($event)">
+            <span class = "Shell-Brand-Mark"></span>
+            <span
+                class = "Shell-Brand-Wordmark"
+                [FancyTypewriter] = "InterfaceService.T().PageName">
+            </span>
+        </a>
+    </div>
+
+    <nav class = "Shell-Dock" aria-label = "Primary navigation">
+        <FancyMultibutton
+            class = "RouteSelector-Multibutton"
+
+            [Items] = "RouteSelectorItems"
+            [(SelectedIndex)] = "SelectedIndex"
+            [Vertical] = "false"
+            [ShowIndicator] = "true"
+
+            DisplayMode = "Icon">
+        </FancyMultibutton>
+    </nav>
+
+    <div class = "Shell-TopBar-Cluster Shell-TopBar-Cluster--End">
+        <FancyDropdown
+            class = "Language-Dropdown"
+            [Items] = "(LanguageItems())"
+            [SelectedItem] = "CurrentLanguageItem()">
+        </FancyDropdown>
+
+        <FancyMinibutton
+            class = "Background-Toggle-Minibutton"
+            [Icon] = "'layers'"
+            [Active] = "BackgroundService.IsDrawerOpen()"
+            [Animated] = "false"
+            [attr.aria-label] = "InterfaceService.T().BackgroundHeaderButtonTooltip"
+            [attr.title] = "InterfaceService.T().BackgroundHeaderButtonTooltip"
+            (Activate) = "BackgroundService.ToggleDrawer()">
+        </FancyMinibutton>
+
+        <div class = "Theme-Toggle-Wrapper">
+            <FancyMinibutton
+                class = "Theme-Toggle-Minibutton"
+                [Icon] = "ThemeIcon()"
+                [Animated] = "false"
+                [Disabled] = "InterfaceService.DarkModeExtensionActive()"
+                (click) = "ToggleTheme($event)">
+            </FancyMinibutton>
+
+            <FancyTooltip
+                class = "Theme-Toggle-Tooltip"
+                [Message] = "InterfaceService.T().ExtensionWarningTooltip"
+                [Active] = "InterfaceService.DarkModeExtensionActive()"
+                [Fixed] = "false"
+                [ArrowTop] = "true">
+            </FancyTooltip>
+        </div>
+    </div>
+</header>
+
+<FancySidebar
+    [Side] = "'Right'"
+    [Mode] = "'Viewport'"
+    [Width] = "'430px'"
+    [Title] = "InterfaceService.T().BackgroundDrawerTitle"
+    [(IsOpen)] = "BackgroundService.IsDrawerOpen">
+    <div class = "Background-Drawer-Body">
+        <p class = "Background-Drawer-Subtitle">{{ InterfaceService.T().BackgroundDrawerSubtitle }}</p>
+        <BackgroundDesignerPanel
+            [Scope] = "'Public'"
+            [AllowSiteDefaultMode] = "true"
+            [PersistImmediately] = "false" />
+    </div>
+</FancySidebar>
+
+<router-outlet />

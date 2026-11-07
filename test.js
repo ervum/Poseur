@@ -1,2 +1,0 @@
-const { execSync } = require('child_process'); const test = (val) => { const env = { ...process.env, PostgresUserName: 'Admin', PostgresUserPassword: val, PostgresDatabaseName: 'DB' }; const out = execSync('docker compose -f docker-compose.dev.yml config', { env }).toString(); const pwdLine = out.split('
-').find(l => l.includes('POSTGRES_PASSWORD:')); console.log(val, '=>', pwdLine ? pwdLine.trim() : 'not found'); }; test('a'); test('ab'); test('a'); test('ab');

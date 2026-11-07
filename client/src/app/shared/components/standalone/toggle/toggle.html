@@ -1,0 +1,25 @@
+<div
+    class = "FancyToggle-Wrapper"
+    [class.Label-Left] = "LabelPosition() === 'Left'"
+    [class.FancyToggle--Primary] = "EffectiveType() === 'Primary'"
+    [class.FancyToggle--Secondary] = "EffectiveType() === 'Secondary'"
+    [class.Is-Checked] = "Checked()"
+    [class.Is-Disabled] = "Disabled()"
+    role = "switch"
+    [attr.aria-checked] = "Checked()"
+    tabindex = "0"
+    (click) = "Toggle()"
+    (keydown.enter) = "Toggle()"
+    (keydown.space) = "Toggle(); $event.preventDefault()">
+
+    <div class = "FancyToggle-Track">
+        <div class = "FancyToggle-Thumb"></div>
+    </div>
+
+    @if (Label()) {
+        <span
+            class = "FancyToggle-Label"
+            [FancyTypewriter] = "Label()">
+        </span>
+    }
+</div>

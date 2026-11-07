@@ -1,0 +1,93 @@
+<FancyContainer
+  class = "FancyTextbox-Wrapper"
+
+  [Type] = "EffectiveType()"
+
+  [attr.Has-Text] = "HasText"
+  [attr.Focus-State] = "FocusState()">
+  <FancyContainer
+    class = "FancyTextbox-Icon-Container"
+
+    [Type] = "EffectiveType()"
+
+    [ngClass] = "GetIconContainerClasses">
+    <div
+      class = "FancyTextbox-Icon"
+
+      [ngStyle] = "GetIconStyles"
+
+      [ngClass] = "{ 
+        'Icon-ExitUp': IconAnimationState() === 'Exiting', 
+        'Icon-EnterDown': IconAnimationState() === 'Entering',
+        'FancyTextbox--Primary': EffectiveType() === 'Primary',
+        'FancyTextbox--Secondary': EffectiveType() === 'Secondary'
+      }"
+      (animationend) = "OnIconAnimationEnd()">
+    </div>
+  </FancyContainer>
+
+  <div
+    class = "FancyTextbox-Content"
+
+    [ngClass] = "GetContentClasses">
+    <div
+      class = "FancyTextbox-Border"
+
+      [ngClass] = "GetOverlayClasses">
+    </div>
+    
+    <input
+      class = "FancyTextbox"
+      [id] = "ID() ?? ''"
+      [name] = "Name() ?? ''"
+      [attr.autocomplete] = "Autocomplete() ?? 'off'"
+
+      [ngClass] = "GetInputClasses"
+      [ngStyle] = "TextboxStyles"
+      [(ngModel)] = "InputValue" 
+      [placeholder] = "DisplayPlaceholder()"
+
+      [type] = "IsSensitive() ? (IsVisible ? 'text' : 'password') : 'text'"
+      [attr.maxlength] = "MaximumLength()"
+      [attr.tabindex] = "Tabindex()"
+
+      (submit) = "OnSubmit()"
+
+      (pointerenter) = "OnHover()"
+      (pointerleave) = "OnUnhover()"
+      (pointercancel) = "OnCancel()"
+      (pointerdown) = "OnDown()"
+      (pointerup) = "OnUp()"
+      
+      (keydown) = "OnKeyDown(); OnFilterKeyDown($event)"
+      (paste) = "OnPaste($event)"
+      (keyup) = "OnKeyUp()"
+      
+      (wheel) = "OnWheel()"
+      
+      (selectstart) = "OnSelect()"
+      (select) = "OnUnselect()"
+
+      (focus) = "OnFocus()"
+      (blur) = "OnUnfocus()">
+
+    @if (IsSensitive()) {
+      <div
+        class = "FancyTextbox-Visibility-Toggle"
+        role = "button"
+        [class.Is-Visible] = "IsVisible"
+        [attr.aria-label] = "IsVisible ? 'Hide password' : 'Show password'"
+        [attr.tabindex] = "Tabindex() === -1 ? -1 : 0"
+        [ngClass] = "GetInputClasses"
+        (click) = "ToggleVisibility()"
+        (keydown.enter) = "ToggleVisibility()"
+        (keydown.space) = "ToggleVisibility(); $event.preventDefault()">
+        <div class = "Visibility-Toggle-BaseIcon"></div>
+        <div
+          class = "Visibility-Toggle-StrikeIcon Animation-Draw"
+          [class.Is-Drawn] = "!IsVisible">
+        </div>
+      </div>
+    }
+  </div>
+</FancyContainer>

@@ -1,0 +1,49 @@
+@use '../../../../styles' as s;
+@use '../shared/background-layer' as layer;
+
+
+
+.Silk-Layer {
+    @include layer.ProceduralLayerStage(6);
+    transition: opacity 0.45s ease;
+}
+
+.Silk-SVG,
+.Silk-Canvas {
+    width: 106%;
+    height: 106%;
+    margin-left: -3%;
+    margin-top: -3%;
+    display: block;
+}
+
+.Silk-Layer--Ambient .Silk-SVG {
+    transform:
+        translate3d(
+            calc(var(--pointer-x, 0) * -12px),
+            calc(var(--pointer-y, 0) * 14px),
+            0
+        );
+    animation: Silk-AmbientWave 18s ease-in-out infinite alternate;
+    @include layer.PauseWhenInactive;
+}
+
+.Silk-Path {
+    fill: none;
+    stroke: url(#Silk-Brand-Stroke-Gradient);
+    stroke-width: 0.85px;
+    vector-effect: non-scaling-stroke;
+
+    &.Silk-Path--Accent {
+        stroke-width: 1.45px;
+    }
+}
+
+@keyframes Silk-AmbientWave {
+    0% {
+        scale: 1 0.985;
+    }
+    100% {
+        scale: 1.02 1.025;
+    }
+}

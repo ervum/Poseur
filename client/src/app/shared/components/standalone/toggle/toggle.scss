@@ -1,0 +1,111 @@
+@use '../../../styles' as s;
+
+
+
+:host {
+    display: inline-block;
+    vertical-align: middle;
+    outline: none;
+}
+
+
+
+.FancyToggle-Wrapper {
+    display: inline-flex;
+    place-items: center;
+    gap: var(--space-3);
+
+    cursor: pointer;
+    user-select: none;
+    outline: none;
+
+    transition: opacity 0.3s var(--easing-standard);
+
+    &.Label-Left {
+        flex-direction: row-reverse;
+    }
+
+    &.Is-Disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+
+    &:focus-visible {
+        .FancyToggle-Track {
+            border-color: var(--accent-brand);
+            box-shadow: var(--focus-ring);
+        }
+    }
+}
+
+.FancyToggle-Track {
+    position: relative;
+
+    width: 44px;
+    height: 24px;
+    flex-shrink: 0;
+    padding: 2px;
+    box-sizing: border-box;
+
+    display: flex;
+    place-items: center;
+
+    border-radius: 12px;
+    background-color: var(--surface-background);
+    border: 1px solid var(--border-main);
+
+    transition:
+        background-color 0.35s var(--easing-standard),
+        border-color 0.35s var(--easing-standard),
+        box-shadow 0.35s var(--easing-standard);
+}
+
+.FancyToggle-Thumb {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+
+    background-color: var(--text-main);
+    box-shadow: 0 2px 6px var(--shadow-standard);
+
+    transition:
+        transform 0.35s var(--easing-standard),
+        background-color 0.35s var(--easing-standard);
+}
+
+.FancyToggle-Wrapper.Is-Checked {
+    .FancyToggle-Track {
+        background-color: var(--accent-brand);
+        border-color: var(--accent-brand);
+        box-shadow: 0 0 12px var(--accent-brand-glow);
+    }
+
+    .FancyToggle-Thumb {
+        transform: translateX(20px);
+        background-color: var(--accent-brand-contrast);
+    }
+}
+
+.FancyToggle-Wrapper:hover:not(.Is-Disabled) {
+    &:not(.Is-Checked) .FancyToggle-Track {
+        background-color: var(--surface-background-hover);
+        border-color: var(--accent-brand);
+    }
+
+    &.Is-Checked .FancyToggle-Track {
+        box-shadow: 0 0 16px var(--accent-brand-glow);
+    }
+}
+
+.FancyToggle-Label {
+    font-size: var(--fontsize-standard);
+    color: var(--text-main);
+    font-weight: 500;
+
+    transition: color 0.3s var(--easing-standard);
+}

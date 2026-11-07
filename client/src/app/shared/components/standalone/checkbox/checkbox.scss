@@ -1,0 +1,111 @@
+@use '../../../styles' as s;
+
+
+
+:host {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+
+    user-select: none;
+
+    color: var(--text-main);
+
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+
+.FancyCheckbox-Wrapper {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    gap: var(--space-2);
+    border-radius: var(--radius-pill);
+    padding: 2px 6px 2px 2px;
+
+    font-size: var(--fontsize-standard, 14px);
+
+    outline: none;
+}
+
+.FancyCheckbox-Wrapper.Label-Left {
+    flex-direction: row-reverse;
+}
+
+.FancyCheckbox-IconContainer {
+    @include s.CreateTransition(transform, border-radius, background-color, border-color);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+
+    width: 1.3em;
+    height: 1.3em;
+    flex-shrink: 0;
+
+    container-type: size;
+
+    transition-duration: var(--duration-standard);
+    transition-timing-function: var(--easing-standard);
+
+    background-color: transparent !important;
+    border: none !important;
+    border-radius: var(--radius-standard);
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+
+        background-color: var(--surface-background);
+        border: 1px solid var(--border-strong);
+        border-radius: var(--radius-standard);
+
+        transition:
+            border-radius var(--duration-standard) var(--easing-standard),
+            background-color var(--duration-standard) var(--easing-standard),
+            border-color var(--duration-standard) var(--easing-standard);
+    }
+
+    &:has(.FancyCheckbox-Icon.Is-Drawn) {
+        color: var(--accent-brand-contrast);
+
+        &::before {
+            background-color: var(--accent-brand);
+            border-color: var(--accent-brand);
+        }
+    }
+}
+
+.FancyCheckbox-Label {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+
+    color: inherit;
+}
+
+.FancyCheckbox-Icon {
+    @include s.MaskedIcon(s.IconURL('checkmark', 'Filled'), currentColor);
+
+    width: var(--icon-size-standard, 60%);
+    height: var(--icon-size-standard, 60%);
+}
+
+/* Hover & Focus Interaction */
+.FancyCheckbox-Wrapper:hover,
+.FancyCheckbox-Wrapper:focus-visible,
+.FancyCheckbox-Wrapper:focus {
+    .FancyCheckbox-IconContainer {
+        transform: scale(var(--hover-scale-big));
+        border-radius: var(--radius-pill);
+
+        &::before {
+            border-radius: var(--radius-pill);
+        }
+    }
+}

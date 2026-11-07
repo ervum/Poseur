@@ -1,0 +1,23 @@
+@use '../../../styles' as s;
+
+
+
+:host {
+    display: inline-flex;
+
+    border-radius: var(--radius-standard);
+    -webkit-backdrop-filter: blur(var(--container-blur)) saturate(140%);
+    backdrop-filter: blur(var(--container-blur)) saturate(140%);
+
+    box-sizing: border-box;
+    transition: inherit;
+
+    background-color: var(--surface-background);
+    border: 1px solid var(--border-main);
+    color: var(--text-main);
+
+    &:host-context(FancyContainer, .Shell-TopBar) {
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+}

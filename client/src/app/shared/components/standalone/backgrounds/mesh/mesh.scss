@@ -1,0 +1,60 @@
+@use '../../../../styles' as s;
+@use '../shared/background-layer' as layer;
+
+
+
+.Mesh-Layer {
+    @include layer.ProceduralLayerStage(1);
+    transition: opacity 0.5s ease;
+}
+
+.Mesh-Wash-Orb {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate3d(0, 0, 0);
+}
+
+.Mesh-Layer--Ambient .Mesh-Wash-Orb {
+    transform:
+        translate3d(
+            calc(var(--pointer-x, 0) * var(--mesh-parallax, 14px)),
+            calc(var(--pointer-y, 0) * var(--mesh-parallax, 14px)),
+            0
+        );
+}
+
+.Mesh-Layer--Evolving .Mesh-Wash-Orb {
+    animation: Mesh-OrbDrift 30s ease-in-out infinite alternate;
+    @include layer.PauseWhenInactive;
+}
+
+@keyframes Mesh-OrbDrift {
+    0% {
+        transform:
+            translate3d(
+                calc(var(--pointer-x, 0) * var(--mesh-parallax, 14px)),
+                calc(var(--pointer-y, 0) * var(--mesh-parallax, 14px)),
+                0
+            )
+            scale(1);
+    }
+    50% {
+        transform:
+            translate3d(
+                calc((var(--pointer-x, 0) * var(--mesh-parallax, 14px)) + 3.5vw),
+                calc((var(--pointer-y, 0) * var(--mesh-parallax, 14px)) - 2.8vh),
+                0
+            )
+            scale(1.08);
+    }
+    100% {
+        transform:
+            translate3d(
+                calc((var(--pointer-x, 0) * var(--mesh-parallax, 14px)) - 2.8vw),
+                calc((var(--pointer-y, 0) * var(--mesh-parallax, 14px)) + 3.2vh),
+                0
+            )
+            scale(0.95);
+    }
+}

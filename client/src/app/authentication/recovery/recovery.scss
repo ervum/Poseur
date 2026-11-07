@@ -1,0 +1,281 @@
+@use '../../shared/styles/' as s;
+
+
+
+.Main {
+    @include s.PageShell;
+}
+
+.Section-Wrapper {
+    width: min(580px, 100%);
+    height: var(--section-height);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.Section-Header-Tooltip {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+}
+
+.Content-Section-Wrapper {
+    display: flex;
+    flex-direction: column;
+    place-content: center;
+    place-items: center;
+
+    width: 100%;
+    height: 100%;
+
+    @include s.GlassSurface(var(--space-7) var(--space-7));
+    @include s.EdgeGlowAnimation;
+}
+
+.Content-Section {
+    display: flex;
+    flex-direction: column;
+    place-content: center;
+    place-items: center;
+
+    gap: var(--space-5);
+
+    width: 100%;
+
+    position: relative;
+    z-index: 5;
+}
+
+.Section-Title-Container {
+    place-content: center;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    place-items: center;
+    gap: var(--space-3);
+    width: 100%;
+    margin-bottom: var(--space-2);
+}
+
+.Section-Title {
+    color: var(--text-main);
+    white-space: nowrap;
+}
+
+.Recovery-Dropdown {
+    width: 185px;
+    --button-height: 44px;
+    z-index: 100;
+}
+
+.Form-Fields-Wrapper {
+    display: grid;
+    grid-template-areas: "FormState";
+    width: 100%;
+    gap: var(--space-4);
+    place-items: center;
+}
+
+.Form-Fields-Horizontal-Group,
+.Unique-Textbox-Wrapper {
+    grid-area: FormState;
+    display: flex;
+    flex-direction: row;
+    gap: var(--space-4);
+    width: 100%;
+    place-items: center;
+    justify-content: center;
+
+    transition: opacity var(--duration-standard) var(--easing-standard);
+
+    @include s.Compact {
+        flex-direction: column;
+    }
+}
+
+.Unique-Textbox-Wrapper {
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.Form-Fields-Horizontal-Group {
+    opacity: 1;
+    pointer-events: all;
+    z-index: 2;
+}
+
+.Animation-Container {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    place-content: center;
+
+    transition:
+        transform var(--duration-standard) var(--easing-standard),
+        opacity var(--duration-standard) var(--easing-standard);
+}
+
+.Input-Field-Wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.Input-Field-Tooltip {
+    position: absolute;
+    left: calc(100% + 28px);
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+
+    @include s.Compact {
+        left: 50%;
+        top: 100%;
+        transform: translateX(-50%) translateY(10px);
+    }
+}
+
+.Unique-Field {
+    transform: translateX(100px);
+    opacity: 0;
+}
+
+.Separator-Text {
+    font-family: var(--font-display);
+    font-size: var(--fontsize-small);
+    font-weight: 700;
+    color: var(--text-muted);
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: opacity var(--duration-standard) var(--easing-standard);
+}
+
+
+
+/* --- State Transitions --- */
+.Is-Password-Mode {
+    .Form-Fields-Horizontal-Group {
+        opacity: 0;
+        pointer-events: none;
+        z-index: 1;
+
+        .Left-Field { transform: translateX(-100px); opacity: 0; }
+        .Right-Field { transform: translateX(100px); opacity: 0; }
+        .Separator-Text { opacity: 0; }
+    }
+
+    .Unique-Textbox-Wrapper {
+        opacity: 1;
+        pointer-events: all;
+        z-index: 2;
+
+        .Unique-Field {
+            transform: translateX(0);
+            opacity: 1;
+            transition-delay: 0.1s;
+        }
+    }
+}
+
+:not(.Is-Password-Mode) {
+    .Unique-Field {
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+}
+
+.Buttons-Container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    width: 100%;
+    margin-top: var(--space-2);
+}
+
+.Action-Button {
+    width: 100%;
+    height: 50px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.Recovery-Result-Container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: var(--space-3) 0;
+    padding: var(--space-4) var(--space-5);
+    background-color: var(--accent-brand-soft);
+    border: 1px solid var(--accent-brand);
+    border-radius: var(--radius-control);
+    animation: fadeIn 0.3s ease-in-out;
+    width: 100%;
+    box-sizing: border-box;
+    gap: var(--space-3);
+}
+
+.Recovery-Result-Main-Label {
+    font-family: var(--font-display);
+    font-size: var(--fontsize-small);
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-align: center;
+}
+
+.Recovery-Result-Parts-Wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    .Is-Split & {
+        flex-direction: row;
+
+        .Recovery-Result-Part {
+            flex: 1;
+            box-sizing: border-box;
+            padding: 0 var(--space-4);
+
+            &:not(:last-child) {
+                border-right: 1px solid var(--border-main);
+            }
+        }
+    }
+}
+
+.Recovery-Result-Part {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+}
+
+.Recovery-Result-Sub-Label {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+}
+
+.Recovery-Result-Value {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--accent-brand);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}

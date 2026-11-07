@@ -1,0 +1,12 @@
+<div
+    class = "Aurora-Container"
+    [class.Aurora-Container--Static] = "Motion() === 'Static'"
+    [class.Aurora-Container--Evolving] = "Motion() === 'Evolving'"
+    [style.--aurora-intensity-scale] = "StageOpacityScale()">
+    @for (Sphere of ActiveSpheres(); track $index) {
+        <div
+            class = "Aurora-Sphere"
+            [ngStyle] = "Sphere.Styles">
+        </div>
+    }
+</div>

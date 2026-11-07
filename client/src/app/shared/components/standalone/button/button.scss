@@ -1,0 +1,184 @@
+@use '../../../styles' as s;
+
+
+
+:host {
+    display: flex;
+    place-content: center;
+    position: relative;
+    width: var(--button-width, 100%);
+    height: 100%;
+
+    container-type: size;
+
+    color: var(--text-main);
+}
+
+
+
+.FancyButton-Wrapper {
+    @include s.CreateTransition(transform, border-radius);
+
+    outline: none;
+
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: transparent;
+    color: transparent;
+
+    &:hover,
+    &:active,
+    &:has(.FancyButton:focus-visible) {
+        @include s.SynchronizeStates('.FancyButton') {
+            transform: translateY(var(--hover-movey));
+
+            border-radius: var(--radius-pill);
+        }
+
+        @include s.SynchronizeStates('.FancyButton-Label') {
+            transform: scale(var(--hover-scale-big));
+        }
+
+        @include s.SynchronizeStates('.FancyButton-Icon') {
+            --icon-scale: var(--hover-scale-big);
+
+            @include s.IconFilled;
+        }
+    }
+}
+
+.FancyButton {
+    display: flex;
+    flex-direction: row;
+    place-items: center;
+    place-content: space-between;
+
+    gap: var(--space-2);
+    padding: 0px var(--space-4) 0px var(--space-5);
+
+    outline: none;
+
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    transition: inherit;
+
+    cursor: pointer;
+
+    background-color: var(--surface-background);
+
+    border-radius: var(--radius-standard);
+
+    text-align: left;
+
+    overflow: hidden;
+
+    &.FancyButton--Accent {
+        background: linear-gradient(135deg, var(--accent-brand), color-mix(in srgb, var(--accent-brand) 78%, #ffffff));
+        border-color: var(--accent-brand);
+        color: var(--accent-brand-contrast);
+        box-shadow: 0 12px 30px -8px var(--accent-brand-glow);
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+
+    &.FancyButton--Backgroundless {
+        background-color: transparent;
+        border: 1px solid var(--border-strong);
+        color: var(--text-main);
+    }
+}
+
+@keyframes Icon-FadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes FancyButton-Icon-ExitRight {
+    0% { translate: 0px 0px; }
+    100% { translate: 50px 0px; }
+}
+
+.FancyButton-Icon {
+    @include s.CreateTransition(width, height, scale, translate, transform);
+
+    pointer-events: none;
+
+    border: none;
+    flex-shrink: 0;
+
+    height: var(--icon-size-standard, 56%);
+    width: auto;
+    aspect-ratio: 1 / 1;
+
+    --icon-scale: 1;
+    scale: var(--icon-scale);
+    translate: 0px 0px;
+
+    @include s.DualStateIcon(currentColor);
+
+    &.FancyButton-Icon--Entering {
+        animation: Icon-FadeIn var(--duration-standard) var(--easing-standard) forwards;
+    }
+    &.FancyButton-Icon--Exiting {
+        animation: FancyButton-Icon-ExitRight var(--duration-standard) var(--easing-standard) forwards;
+    }
+    &.FancyButton-Icon--OffScreen {
+        translate: 50px 0px;
+    }
+}
+
+.FancyButton-Label-Wrapper {
+    height: 100%;
+    flex: 1;
+    display: flex;
+    place-content: center flex-start;
+    place-items: center;
+
+    &.FancyButton-Label-Wrapper--Centered {
+        place-content: center;
+
+        .FancyButton-Label {
+            text-align: center;
+            transform-origin: center;
+        }
+    }
+}
+
+.FancyButton-Label {
+    @include s.CreateTransition(font-size, transform);
+
+    transform-origin: left;
+
+    font-size: var(--fontsize-standard);
+
+    white-space: normal;
+    line-height: 1.1;
+
+    word-break: break-word;
+    word-wrap: break-word;
+
+    display: inline-block;
+    text-align: left;
+    width: auto;
+    max-width: 100%;
+}
+
+.FancyButton--Inverted {
+    pointer-events: none;
+
+    transform: scale(1.01);
+
+    clip-path: circle(0% at center);
+}
+
+.FancyButton--Centered {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

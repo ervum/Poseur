@@ -1,0 +1,178 @@
+@use 'app/shared/styles' as s;
+
+
+
+:root {
+    color-scheme: light dark;
+
+    &.Theme--Primary {
+        color-scheme: dark;
+    }
+    &.Theme--Secondary {
+        color-scheme: light;
+    }
+
+    &.Block-DarkMode-Extensions {
+        &.Theme--Primary,
+        &.Theme--Primary body {
+            color-scheme: only dark !important;
+        }
+        &.Theme--Secondary,
+        &.Theme--Secondary body {
+            color-scheme: only light !important;
+        }
+    }
+}
+
+.no-transitions,
+.no-transitions * {
+    transition: none !important;
+    animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --duration-standard: 0.01s;
+        --duration-slow: 0.01s;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+::selection {
+    background-color: var(--accent-brand-soft);
+    color: var(--text-main);
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb);
+    border-radius: 999px;
+}
+
+/* --- Unified Keyboard Focus Ring --- */
+.FancyButton:focus-visible,
+.FancyMultibutton:focus-visible,
+.Minibutton-IconContainer:focus-visible,
+.FancyTextbox-Visibility-Toggle:focus-visible,
+.FancyCheckbox-Wrapper:focus-visible,
+.FancyDropdown-Trigger:focus-visible,
+.FancyDropdown-Item:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+}
+
+span,
+p,
+h1, h2, h3, h4, h5, h6,
+label,
+button,
+[role="button"],
+.FancyButton,
+.FancyMultibutton,
+.FancyDropdown-Trigger,
+.FancyDropdown-Item,
+.Extension-Warning-Tooltip,
+.Section-Title,
+.Minibutton-IconContainer,
+.FancyTextbox-Icon-Container,
+.FancyTextbox-Visibility-Toggle {
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+input,
+textarea,
+[contenteditable="true"] {
+    user-select: text !important;
+    -webkit-user-select: text !important;
+    cursor: text;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+
+    color: var(--text-main);
+}
+
+html {
+    background-color: var(--base-background);
+}
+
+body {
+    background-color: transparent;
+
+    :root.Block-DarkMode-Extensions & {
+        color-scheme: inherit !important;
+    }
+}
+
+.Main {
+    position: relative;
+    z-index: 2;
+}
+
+
+
+/* --- View Transition: Circular Theme Toggle Ripple --- */
+::view-transition-old(root) {
+    animation: none;
+    z-index: 1;
+}
+
+::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+    z-index: 9999;
+}
+
+
+
+/* --- Browser Input & Autofill Overrides --- */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+textarea:-webkit-autofill:active,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus,
+select:-webkit-autofill:active {
+    transition: background-color 9999000s ease-in-out 0s, color 9999000s ease-in-out 0s !important;
+    -webkit-text-fill-color: currentColor !important;
+}
+
+input::-ms-clear,
+input::-ms-reveal,
+input::-webkit-contacts-auto-fill-button,
+input::-webkit-credentials-auto-fill-button,
+input::-webkit-search-cancel-button,
+input::-webkit-search-decoration,
+input::-webkit-search-results-button,
+input::-webkit-search-results-decoration {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}

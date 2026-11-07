@@ -1,0 +1,312 @@
+@use '../../../styles' as s;
+
+
+
+:host {
+    display: block;
+    width: 100%;
+
+    color: var(--text-main);
+}
+
+
+
+.FancyTextbox-Wrapper {
+    display: flex;
+
+    place-content: center;
+    place-items: center;
+
+    position: relative;
+
+    left: 50%;
+    transform: translate(-50%, 0%);
+
+    width: var(--textbox-width);
+    height: var(--control-height);
+
+    container-type: size;
+
+    transition:
+        width var(--duration-standard) var(--easing-standard),
+        border-radius var(--duration-standard) var(--easing-standard);
+
+    border-radius: var(--radius-standard);
+
+    padding: 0px var(--padding-small) 0px var(--padding-small);
+
+    font-size: var(--fontsize-standard);
+
+    background: transparent;
+    border: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+
+    &:hover:not(:has(.FancyTextbox-Visibility-Toggle:hover)) {
+        width: calc(var(--textbox-width) * var(--hover-scale-big));
+        border-radius: var(--radius-pill);
+
+        .FancyTextbox-Icon-Container {
+            transform: scale(var(--hover-scale-standard));
+            border-radius: var(--radius-pill);
+        }
+
+        .FancyTextbox-Border {
+            border-radius: var(--radius-pill);
+        }
+
+        .FancyTextbox {
+            transform: scale(var(--hover-scale-big));
+        }
+    }
+
+    &:has(.FancyTextbox:focus),
+    &[Focus-State = "Focusing"],
+    &[Focus-State = "Focused"] {
+        width: calc(var(--textbox-width) * var(--interact-scale-standard)) !important;
+
+        .FancyTextbox {
+            transform: scale(1) !important;
+        }
+
+        .FancyTextbox-Border {
+            border-color: var(--accent-brand);
+            box-shadow: 0 0 0 3px var(--accent-brand-soft);
+        }
+
+        .FancyTextbox-Icon-Container {
+            border-color: var(--accent-brand);
+            background-color: var(--accent-brand-soft);
+            color: var(--accent-brand);
+
+            .FancyTextbox-Icon {
+                @include s.IconFilled;
+            }
+        }
+    }
+}
+
+.FancyTextbox-Icon-Container {
+    aspect-ratio: 1 / 1;
+
+    display: flex;
+    flex-direction: row;
+    place-content: center;
+    place-items: center;
+
+    overflow: hidden;
+
+    z-index: 3;
+
+    height: var(--iconcontainer-size);
+    width: auto;
+
+    transition:
+        transform var(--duration-standard) var(--easing-standard),
+        border-radius var(--duration-standard) var(--easing-standard),
+        border-color var(--duration-standard) var(--easing-standard),
+        background-color var(--duration-standard) var(--easing-standard),
+        color var(--duration-standard) var(--easing-standard),
+        box-shadow var(--duration-standard) var(--easing-standard);
+
+    flex-shrink: 0;
+
+    border-radius: var(--radius-standard);
+
+    background-color: var(--surface-background-hover);
+    border: 1px solid var(--border-strong);
+    box-shadow: 0 0 10px var(--shadow-standard);
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-color: var(--surface-background);
+        z-index: -1;
+        border-radius: inherit;
+    }
+}
+
+
+.FancyTextbox-Icon {
+    pointer-events: none;
+
+    position: relative;
+
+    z-index: 5;
+
+    width: var(--icon-size-standard);
+    height: var(--icon-size-standard);
+
+    @include s.DualStateIcon(currentColor);
+
+    &.Icon-ExitUp {
+        animation: Icon-ExitUp 0.35s var(--easing-standard) forwards;
+    }
+    &.Icon-EnterDown {
+        animation: Icon-EnterDown 0.35s var(--easing-standard) forwards;
+    }
+}
+
+.FancyTextbox-Visibility-Toggle {
+    position: absolute;
+    right: var(--padding-small);
+
+    height: 100%;
+    aspect-ratio: 1 / 1;
+
+    display: flex;
+    place-content: center;
+    place-items: center;
+
+    cursor: pointer;
+    pointer-events: all;
+    outline: none;
+    border-radius: var(--radius-pill);
+
+    transition:
+        transform var(--duration-standard) var(--easing-standard),
+        color var(--duration-standard) var(--easing-standard);
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: calc(var(--padding-small) * -1);
+    }
+
+    .Visibility-Toggle-BaseIcon,
+    .Visibility-Toggle-StrikeIcon {
+        position: absolute;
+        width: calc(var(--icon-size-standard) * 0.7);
+        height: calc(var(--icon-size-standard) * 0.7);
+
+        transition: transform var(--duration-standard) var(--easing-standard);
+    }
+
+    .Visibility-Toggle-BaseIcon {
+        --icon-stroked: #{s.IconURL('eye')};
+        --icon-filled: #{s.IconURL('eye', 'Filled')};
+
+        @include s.DualStateIcon(currentColor);
+    }
+
+    .Visibility-Toggle-StrikeIcon {
+        @include s.MaskedIcon(s.IconURL('crossmark'), currentColor);
+
+        transition: transform var(--duration-standard) var(--easing-standard), var(--draw-transition);
+    }
+
+    &.Is-Visible .Visibility-Toggle-BaseIcon {
+        @include s.IconFilled;
+    }
+
+    &:hover .Visibility-Toggle-BaseIcon,
+    &:hover .Visibility-Toggle-StrikeIcon,
+    &:focus-visible .Visibility-Toggle-BaseIcon,
+    &:focus-visible .Visibility-Toggle-StrikeIcon,
+    &:focus .Visibility-Toggle-BaseIcon,
+    &:focus .Visibility-Toggle-StrikeIcon {
+        transform: scale(var(--hover-scale-big));
+    }
+
+    &:hover .Visibility-Toggle-BaseIcon,
+    &:focus-visible .Visibility-Toggle-BaseIcon,
+    &:focus .Visibility-Toggle-BaseIcon {
+        @include s.IconFilled;
+    }
+}
+
+.FancyTextbox-Content {
+    display: inline-flex;
+    place-content: center;
+    place-items: center;
+
+    width: 100%;
+    height: 100%;
+
+    gap: 10px;
+}
+
+.FancyTextbox-Border {
+    pointer-events: none;
+
+    position: absolute;
+
+    left: 0;
+    transform: none;
+
+    width: 100%;
+    height: 100%;
+
+    transition:
+        border-radius var(--duration-standard) var(--easing-standard),
+        border-color var(--duration-standard) var(--easing-standard),
+        background-color var(--duration-standard) var(--easing-standard),
+        box-shadow var(--duration-standard) var(--easing-standard);
+
+    border: 1px solid var(--border-strong);
+    background-color: var(--surface-background);
+    box-sizing: border-box;
+
+    &.FancyTextbox--Intermediate {
+        border-top: none;
+    }
+    &.FancyTextbox--Last {
+        border-top: none;
+    }
+}
+
+.FancyTextbox-Border,
+.FancyTextbox {
+    &.FancyTextbox--First {
+        border-radius: var(--radius-standard) var(--radius-standard) 2px 2px;
+    }
+    &.FancyTextbox--Intermediate {
+        border-radius: 0cqmin;
+    }
+    &.FancyTextbox--Last {
+        border-radius: 2px 2px var(--radius-standard) var(--radius-standard);
+    }
+    &.FancyTextbox--Unique {
+        border-radius: var(--radius-standard);
+    }
+}
+
+.FancyTextbox {
+    outline: none;
+
+    position: absolute;
+
+    left: 0;
+    transform: none;
+
+    width: 100%;
+    height: 100%;
+
+    transition: transform var(--duration-standard) var(--easing-standard);
+    transform-origin: left;
+
+    background-color: transparent;
+
+    cursor: pointer;
+
+    padding-left: calc(var(--control-height) + var(--padding-small));
+    padding-right: var(--padding-small);
+    box-sizing: border-box;
+
+    border: none;
+    border-width: 0px;
+
+    text-align: left;
+    text-indent: 0;
+
+    font-size: inherit;
+    color: inherit;
+
+    &:has(~ .FancyTextbox-Visibility-Toggle) {
+        padding-right: calc(var(--control-height) + var(--padding-small));
+    }
+}

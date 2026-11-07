@@ -1,122 +1,61 @@
-# Compiled Output
-/dist
-/node_modules
-/build
-/tmp
-/out-tsc
-/bazel-out
+# Dependencies & Package Managers
+node_modules/
+.pnpm-store/
 
-# Cache Files
-.cache
-.parcel-cache
-.eslintcache
+# Compiled Output & Build Artifacts
+dist/
+build/
+out/
+out-tsc/
+browser/
 *.tsbuildinfo
 
-# Logs
-logs
+# Angular & Build Caches
+.angular/
+.cache/
+
+# Environment Variable & Secret Files
+.env
+.env.*
+!.env.example
+docker.env
+docker.env.*
+!docker.env.example
+deploy_rsa*
+id_deploy*
+*.key
+*.pem
+*.pub
+
+# Local Database & Storage Files
+*.db
+*.db.*
+*.sqlite
+*.sqlite3
+match-cache.json
+
+# Logs & Process Outputs
 *.log
-npm-debug.log*
-pnpm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-lerna-debug.log*
+*.log*
+build_output.txt
 
-# Tests
-/coverage
-/.nyc_output
-
-# IDEs and Editors
-*.sublime-workspace
-/.idea
-.idea/
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-.project
-
-# IDE - VSCode
+# Operating System & Editor Files
+.DS_Store
+Thumbs.db
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-!.vscode/*.code-workspace
-.history/*
+.idea/
 
-# OS
-.DS_Store
-Thumbs.db
-
-# Node
-/node_modules
-npm-debug.log
-yarn-error.log
-
-# dotenv Environment Variable Files
-.env
-.env.development.local
-.env.test.local
-.env.production.local
-.env.local
-docker.env
-
-# Temp Directory
-.temp
-.tmp
-
-# Runtime Data
-pids
-*.pid
-*.seed
-*.pid.lock
-
-# Miscellaneous
-/.angular/cache
-.sass-cache/
-/connect.lock
-/coverage
-/libpeerconnection.log
-testem.log
-/typings
-__screenshots__/
-
-# Diagnostic Reports (https://nodejs.org/api/report.html)
-report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
-
-# Local SSL / certs
-*.crt
-*.key
-*.pem
-certs/
-
-# Local database files and dev db folders
-*.sqlite
-*.db
-pgdata/
-.postgres/
-.psql_history
-
-# VS Code workspace files (keep settings and tasks, ignore workspace files)
-.vscode/*.code-workspace
-.cursor
-
-# Local editor caches
-*.sublime-workspace
-*.swp
-*.swo
-
-# pnpm store (if present locally)
-.pnpm-store/
-
-# Development Containers and Docker files
-# Keep committed devcontainer.json; ignore local overrides and sensitive files
-!/.devcontainer/devcontainer.json
-.devcontainer/*.local.json
-.devcontainer/*.local.*
-docker-compose.override.yml
-docker-compose.*.local.yml
-
-# Local Docker data
-docker-data/
+# Ephemeral Agent Swarm & Teamwork Preview Artifacts
+.agents/*
+!.agents/AGENTS.md
+!.agents/ARCHITECTURE
+!.agents/ARCHITECTURE.md
+!.agents/MODIFICATIONS
+!.agents/MODIFICATIONS.md
+!.agents/skills/
+!.agents/skills/**
+ORIGINAL_REQUEST.md

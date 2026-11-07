@@ -1,0 +1,244 @@
+/* --- Design Tokens --- */
+
+/* Border Radiuses */
+$Radius-Square: 0cqmin;
+$Radius-Sharpest: 10cqmin;
+$Radius-Sharp: 20cqmin;
+$Radius-Standard: 30cqmin;
+$Radius-Round: 35cqmin;
+$Radius-Pill: 50cqmin;
+
+/* Surface Geometry (Fixed px for large card surfaces) */
+$Radius-Surface: 28px;
+$Radius-Control: 14px;
+
+/* Typography */
+$Font-Display: 'Space Grotesk', 'Inter', system-ui, -apple-system, sans-serif;
+
+$FontSize-Display: clamp(2.5rem, 5.2vw + 1rem, 4.5rem);
+$FontSize-Title: clamp(1.5rem, 2vw + 0.9rem, 2.125rem);
+$FontSize-Body: 15px;
+$FontSize-Standard: 14px;
+$FontSize-Small: 12px;
+
+/* Spacing Scale */
+$Space-1: 4px;
+$Space-2: 8px;
+$Space-3: 12px;
+$Space-4: 16px;
+$Space-5: 24px;
+$Space-6: 32px;
+$Space-7: 48px;
+$Space-8: 64px;
+
+/* Breakpoints */
+$Breakpoint-Compact: 768px;
+
+/* Transitions & Animations */
+$Easing-Standard: cubic-bezier(0.86, 0, 0.07, 1);
+$Easing-Snap: cubic-bezier(1, 0, 0, 1);
+
+$Duration-Standard: 0.8s;
+$Duration-Slow: 1.0s;
+$Duration-Icon-Swap: 0.28s;
+
+/* Icons */
+$Icons-Base-Path: '/assets/icons/';
+$Icon-Filled-Suffix: '-filled';
+
+/* Interactive States */
+$Interact-Scale-Big: 1.2;
+$Interact-Scale-Standard: 1.1;
+
+$Hover-Scale-Big: 0.94;
+$Hover-Scale-Standard: 0.88;
+
+$Hover-MoveY: -3px;
+
+/* Visual Effects */
+$Blur-Standard: 12px;
+
+/* Shell Chrome Dimensions */
+$Topbar-Height: 64px;
+
+/* Route Specifics - Authentication */
+$Section-Width: 480px;
+$Section-Height: auto;
+
+$Field-Width: 100%;
+
+/* Component Specifics - Shared */
+$Padding-Small: 4px;
+$Padding-Medium: 8px;
+
+$Control-Height: 46px;
+
+$IconContainer-Size: 80%;
+$Icon-Size-Standard: 56%;
+$Icon-Size-Small: 45%;
+
+/* Component Specifics - Fancy Textbox */
+$Textbox-Width: 86%;
+
+/* Component Specifics - Fancy Multibutton */
+$Multibutton-Width: 100%;
+$Multibutton-Padding: $Padding-Small;
+$Multibutton-IndicatorTrackHeight: $FontSize-Standard;
+
+/* Component Specifics - Fancy Button */
+$Button-Width: 100%;
+
+
+
+/* --- CSS Variables Export --- */
+:root {
+    /* --- Global Shared Tokens --- */
+    --radius-square: #{$Radius-Square};
+    --radius-sharpest: #{$Radius-Sharpest};
+    --radius-sharp: #{$Radius-Sharp};
+    --radius-standard: #{$Radius-Standard};
+    --radius-round: #{$Radius-Round};
+    --radius-pill: #{$Radius-Pill};
+
+    --radius-surface: #{$Radius-Surface};
+    --radius-control: #{$Radius-Control};
+
+    --font-display: #{$Font-Display};
+
+    --fontsize-display: #{$FontSize-Display};
+    --fontsize-title: #{$FontSize-Title};
+    --fontsize-body: #{$FontSize-Body};
+    --fontsize-standard: #{$FontSize-Standard};
+    --fontsize-small: #{$FontSize-Small};
+
+    --space-1: #{$Space-1};
+    --space-2: #{$Space-2};
+    --space-3: #{$Space-3};
+    --space-4: #{$Space-4};
+    --space-5: #{$Space-5};
+    --space-6: #{$Space-6};
+    --space-7: #{$Space-7};
+    --space-8: #{$Space-8};
+
+    --topbar-height: #{$Topbar-Height};
+
+    --easing-standard: #{$Easing-Standard};
+    --easing-snap: #{$Easing-Snap};
+
+    --duration-standard: #{$Duration-Standard};
+    --duration-slow: #{$Duration-Slow};
+    --duration-icon-swap: #{$Duration-Icon-Swap};
+
+    --interact-scale-big: #{$Interact-Scale-Big};
+    --interact-scale-standard: #{$Interact-Scale-Standard};
+
+    --hover-scale-standard: #{$Hover-Scale-Standard};
+    --hover-scale-big: #{$Hover-Scale-Big};
+
+    --hover-movey: #{$Hover-MoveY};
+
+    --blur-standard: #{$Blur-Standard};
+    --container-blur: var(--blur-standard);
+
+    --section-width: #{$Section-Width};
+    --section-height: #{$Section-Height};
+
+    --field-width: #{$Field-Width};
+
+    --padding-small: #{$Padding-Small};
+    --padding-medium: #{$Padding-Medium};
+
+    --control-height: #{$Control-Height};
+
+    --iconcontainer-size: #{$IconContainer-Size};
+    --icon-size-standard: #{$Icon-Size-Standard};
+    --icon-size-small: #{$Icon-Size-Small};
+
+    --textbox-width: #{$Textbox-Width};
+
+    --multibutton-width: #{$Multibutton-Width};
+    --multibutton-padding: #{$Multibutton-Padding};
+    --multibutton-indicatortrackheight: #{$Multibutton-IndicatorTrackHeight};
+
+    --button-width: #{$Button-Width};
+
+    /* --- Theme Palettes --- */
+
+    /* [Default / Primary] - Lumina (Dark Mode with White & Violet-Indigo Accents) */
+    &, &.Theme--Primary {
+        --base-background: #050507;
+        --surface-background: rgba(16, 16, 22, 0.56);
+        --surface-background-hover: rgba(28, 28, 38, 0.68);
+        --surface-highlight: rgba(255, 255, 255, 0.09);
+        --container-blur: 40px;
+
+        --accent-main: #ffffff;
+        --accent-muted: rgba(255, 255, 255, 0.5);
+        --accent-glow: rgba(255, 255, 255, 0.8);
+
+        --accent-brand: #8b7cff;
+        --accent-brand-soft: rgba(139, 124, 255, 0.16);
+        --accent-brand-glow: rgba(139, 124, 255, 0.45);
+        --accent-brand-contrast: #ffffff;
+
+        --focus-ring: 0 0 0 2px var(--base-background), 0 0 0 4px var(--accent-brand);
+        --elevation-surface: 0 1px 0 var(--surface-highlight) inset, 0 30px 80px -20px rgba(0, 0, 0, 0.72);
+
+        --text-main: #ffffff;
+        --text-muted: rgba(255, 255, 255, 0.64);
+
+        --border-main: rgba(255, 255, 255, 0.14);
+        --border-strong: rgba(255, 255, 255, 0.34);
+
+        --glow-standard: rgba(255, 255, 255, 0.45);
+        --glow-strong: rgba(255, 255, 255, 0.28);
+
+        --shadow-standard: rgba(0, 0, 0, 0.35);
+        --shadow-strong: rgba(0, 0, 0, 0.55);
+
+        --scrollbar-thumb: rgba(255, 255, 255, 0.22);
+
+        /* Legacy Support (to be deprecated) */
+        --edge-colour: #ffffff;
+        --edge-glow: rgba(255, 255, 255, 0.8);
+    }
+
+    /* [Secondary] - Obsidian (Light Mode with Ink & Indigo Accents) */
+    &.Theme--Secondary {
+        --base-background: #f8f8fc;
+        --surface-background: rgba(255, 255, 255, 0.68);
+        --surface-background-hover: rgba(255, 255, 255, 0.86);
+        --surface-highlight: rgba(255, 255, 255, 0.92);
+        --container-blur: 40px;
+
+        --accent-main: #111118;
+        --accent-muted: rgba(17, 17, 24, 0.45);
+        --accent-glow: rgba(17, 17, 24, 0.2);
+
+        --accent-brand: #5b47e0;
+        --accent-brand-soft: rgba(91, 71, 224, 0.12);
+        --accent-brand-glow: rgba(91, 71, 224, 0.32);
+        --accent-brand-contrast: #ffffff;
+
+        --focus-ring: 0 0 0 2px var(--base-background), 0 0 0 4px var(--accent-brand);
+        --elevation-surface: 0 1px 0 var(--surface-highlight) inset, 0 28px 60px -24px rgba(17, 17, 40, 0.16);
+
+        --text-main: #111118;
+        --text-muted: rgba(17, 17, 24, 0.62);
+
+        --border-main: rgba(17, 17, 24, 0.10);
+        --border-strong: rgba(17, 17, 24, 0.24);
+
+        --glow-standard: rgba(91, 71, 224, 0.16);
+        --glow-strong: rgba(17, 17, 24, 0.1);
+
+        --shadow-standard: rgba(17, 17, 40, 0.12);
+        --shadow-strong: rgba(17, 17, 40, 0.22);
+
+        --scrollbar-thumb: rgba(17, 17, 24, 0.22);
+
+        /* Legacy Support (to be deprecated) */
+        --edge-colour: #111118;
+        --edge-glow: rgba(17, 17, 24, 0.2);
+    }
+}

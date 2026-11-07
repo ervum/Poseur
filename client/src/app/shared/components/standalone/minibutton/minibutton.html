@@ -1,0 +1,36 @@
+<FancyContainer
+    class = "Minibutton-IconContainer"
+    [attr.tabindex] = "EffectiveTabindex()"
+    role = "button"
+    (pointerdown) = "OnDown()"
+    (pointerup) = "OnUp()"
+    (pointerleave) = "OnUp()"
+    (pointercancel) = "OnUp()"
+    (keydown) = "OnKeyDown($event)">
+
+    @if (Icon()) {
+        <div
+            class = "Minibutton-Icon"
+            [class.Minibutton-Icon--Entering] = "IconStatus() === 'Entering'"
+            [class.Minibutton-Icon--Exiting] = "IconStatus() === 'Exiting'"
+            [class.Minibutton-Icon--OffScreen] = "IconStatus() === 'OffScreen'"
+            [class.Is-Filled] = "Active()"
+
+            [ngStyle] = "GetIconStyles"
+            (animationend) = "OnIconAnimationEnd()">
+        </div>
+    }
+
+    @if (Label()) {
+        @if (Typewriter()) {
+            <span
+                class = "Minibutton-Label"
+                [FancyTypewriter] = "Label() ?? ''">
+            </span>
+        } @else {
+            <span class = "Minibutton-Label">
+                {{ Label() }}
+            </span>
+        }
+    }
+</FancyContainer>

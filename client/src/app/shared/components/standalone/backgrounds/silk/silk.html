@@ -1,0 +1,32 @@
+<div
+    class = "Silk-Layer"
+    [class.Silk-Layer--Ambient] = "Motion() === 'Ambient'"
+    [class.Silk-Layer--Evolving] = "Motion() === 'Evolving'"
+    [style.opacity] = "StageOpacity()">
+    @if (Motion() === 'Evolving') {
+        <canvas #EvolvingCanvas class = "Silk-Canvas"></canvas>
+    } @else {
+        <svg
+            class = "Silk-SVG"
+            [attr.viewBox] = "'0 0 ' + ViewWidth + ' ' + ViewHeight"
+            preserveAspectRatio = "none"
+            aria-hidden = "true">
+            <defs>
+                <linearGradient id = "Silk-Brand-Stroke-Gradient" x1 = "0%" y1 = "0%" x2 = "100%" y2 = "0%">
+                    <stop offset = "0%" stop-color = "#8b7cff" stop-opacity = "0" />
+                    <stop offset = "22%" stop-color = "#8b7cff" stop-opacity = "0.75" />
+                    <stop offset = "50%" stop-color = "#c4b5fd" stop-opacity = "0.95" />
+                    <stop offset = "78%" stop-color = "#6e8efb" stop-opacity = "0.75" />
+                    <stop offset = "100%" stop-color = "#8b7cff" stop-opacity = "0" />
+                </linearGradient>
+            </defs>
+            @for (Wave of WavePaths(); track $index) {
+                <path
+                    class = "Silk-Path"
+                    [class.Silk-Path--Accent] = "Wave.IsAccent"
+                    [style.opacity] = "Wave.StrokeOpacityFactor"
+                    [attr.d] = "Wave.PathData" />
+            }
+        </svg>
+    }
+</div>

@@ -1,0 +1,25 @@
+@use '../../../styles' as s;
+
+
+
+:host {
+    display: inline-flex;
+    place-content: center;
+    place-items: center;
+    line-height: 1;
+    vertical-align: middle;
+    color: inherit;
+}
+
+
+
+.FancyIcon-Glyph {
+    display: inline-block;
+    flex-shrink: 0;
+
+    @include s.DualStateIcon(currentColor);
+
+    &.Is-Filled {
+        @include s.IconFilled;
+    }
+}

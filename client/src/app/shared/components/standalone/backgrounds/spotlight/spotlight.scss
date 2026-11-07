@@ -1,0 +1,74 @@
+@use '../../../../styles' as s;
+@use '../shared/background-layer' as layer;
+
+
+
+.Spotlight-Layer {
+    @include layer.ProceduralLayerStage(7);
+}
+
+.Spotlight-Halo {
+    position: absolute;
+    inset: 0;
+    opacity: var(--spotlight-opacity, 0.26);
+    transition: opacity 0.4s ease;
+    background:
+        radial-gradient(
+            circle var(--spotlight-radius, 46vmax) at var(--pointer-x-pct, 50%) var(--pointer-y-pct, 36%),
+            rgba(139, 124, 255, 0.26) 0%,
+            rgba(110, 142, 251, 0.11) 38%,
+            transparent 76%
+        );
+
+    :root.Theme--Secondary & {
+        background:
+            radial-gradient(
+                circle var(--spotlight-radius, 46vmax) at var(--pointer-x-pct, 50%) var(--pointer-y-pct, 36%),
+                rgba(91, 71, 224, 0.24) 0%,
+                rgba(110, 142, 251, 0.10) 38%,
+                transparent 76%
+            );
+    }
+}
+
+.Spotlight-Layer--Static .Spotlight-Halo {
+    background:
+        radial-gradient(
+            circle var(--spotlight-radius, 46vmax) at 50% 24%,
+            rgba(139, 124, 255, 0.24) 0%,
+            rgba(110, 142, 251, 0.10) 40%,
+            transparent 78%
+        );
+
+    :root.Theme--Secondary & {
+        background:
+            radial-gradient(
+                circle var(--spotlight-radius, 46vmax) at 50% 24%,
+                rgba(91, 71, 224, 0.22) 0%,
+                rgba(110, 142, 251, 0.09) 40%,
+                transparent 78%
+            );
+    }
+}
+
+.Spotlight-Layer--Evolving .Spotlight-Halo {
+    animation: Spotlight-Pulse 12s ease-in-out infinite alternate;
+    @include layer.PauseWhenInactive;
+}
+
+.Spotlight-Film-Grain {
+    position: absolute;
+    inset: 0;
+    opacity: var(--grain-opacity, 0.032);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+}
+
+@keyframes Spotlight-Pulse {
+    0% {
+        transform: scale(0.96);
+    }
+    100% {
+        transform: scale(1.06);
+    }
+}

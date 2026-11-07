@@ -1,0 +1,79 @@
+@use '../../../../styles' as s;
+@use '../shared/background-layer' as layer;
+
+
+
+.Blueprint-Layer {
+    @include layer.ProceduralLayerStage(5);
+    opacity: var(--blueprint-opacity, 0.32);
+    transition: opacity 0.4s ease;
+}
+
+.Blueprint-Base-Grid,
+.Blueprint-Interactive-Grid {
+    position: absolute;
+    inset: -4%;
+    background-image:
+        linear-gradient(to right, rgba(139, 124, 255, 0.09) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(139, 124, 255, 0.09) 1px, transparent 1px),
+        linear-gradient(to right, rgba(139, 124, 255, 0.24) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(139, 124, 255, 0.24) 1px, transparent 1px);
+    background-size:
+        var(--blueprint-minor-size, 36px) var(--blueprint-minor-size, 36px),
+        var(--blueprint-minor-size, 36px) var(--blueprint-minor-size, 36px),
+        var(--blueprint-major-size, 144px) var(--blueprint-major-size, 144px),
+        var(--blueprint-major-size, 144px) var(--blueprint-major-size, 144px);
+
+    :root.Theme--Secondary & {
+        background-image:
+            linear-gradient(to right, rgba(91, 71, 224, 0.08) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(91, 71, 224, 0.08) 1px, transparent 1px),
+            linear-gradient(to right, rgba(91, 71, 224, 0.20) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(91, 71, 224, 0.20) 1px, transparent 1px);
+    }
+}
+
+.Blueprint-Base-Grid {
+    -webkit-mask-image: radial-gradient(ellipse 84% 78% at 50% 45%, #000 25%, transparent 96%);
+    mask-image: radial-gradient(ellipse 84% 78% at 50% 45%, #000 25%, transparent 96%);
+}
+
+.Blueprint-Interactive-Grid {
+    background-image:
+        linear-gradient(to right, rgba(196, 181, 253, 0.24) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(196, 181, 253, 0.24) 1px, transparent 1px),
+        linear-gradient(to right, rgba(139, 124, 255, 0.52) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(139, 124, 255, 0.52) 1px, transparent 1px);
+    -webkit-mask-image: radial-gradient(
+        360px circle at var(--pointer-x-pct, 50%) var(--pointer-y-pct, 50%),
+        #000 0%,
+        transparent 100%
+    );
+    mask-image: radial-gradient(
+        360px circle at var(--pointer-x-pct, 50%) var(--pointer-y-pct, 50%),
+        #000 0%,
+        transparent 100%
+    );
+
+    :root.Theme--Secondary & {
+        background-image:
+            linear-gradient(to right, rgba(110, 142, 251, 0.24) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(110, 142, 251, 0.24) 1px, transparent 1px),
+            linear-gradient(to right, rgba(91, 71, 224, 0.48) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(91, 71, 224, 0.48) 1px, transparent 1px);
+    }
+}
+
+.Blueprint-Layer--Evolving .Blueprint-Base-Grid {
+    animation: Blueprint-Pan 36s linear infinite;
+    @include layer.PauseWhenInactive;
+}
+
+@keyframes Blueprint-Pan {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    100% {
+        transform: translate3d(var(--blueprint-major-size, 144px), var(--blueprint-major-size, 144px), 0);
+    }
+}

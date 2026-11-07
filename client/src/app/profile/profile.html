@@ -1,0 +1,51 @@
+<div class = "Main Wrapper">
+    <div
+        class = "Section-Wrapper"
+        FancySlideUpDown>
+
+        <FancyContainer class = "Content-Section-Wrapper" [ngClass] = "InterfaceService.GetStatusClasses()">
+            @if (IsLoggedIn()) {
+                <div class = "Content-Section">
+                    <div class = "Profile-Avatar">
+                        <span class = "Profile-Avatar-Mark"></span>
+                    </div>
+
+                    <span
+                        class = "Section-Title Text-Title"
+                        [FancyTypewriter] = "InterfaceService.T().ProfileTitle">
+                    </span>
+
+                    <div class = "Profile-Info-Container">
+                        <p
+                            class = "Profile-Status-Text"
+                            [FancyTypewriter] = "InterfaceService.T().ProfileStatus">
+                        </p>
+                    </div>
+
+                    <div class = "Buttons-Container">
+                        <FancyButton
+                            class = "Action-Button"
+                            Style = "Accent"
+                            [Label] = "InterfaceService.T().SignOut"
+                            (Up) = "HandleSignOut()">
+                        </FancyButton>
+                    </div>
+                </div>
+            } @else {
+                <div class = "Content-Section Unauthenticated-Section">
+                    <span
+                        class = "Unauthenticated-Text"
+                        [FancyTypewriter] = "InterfaceService.T().GoToAuthentication">
+                    </span>
+
+                    <FancyMinibutton
+                        class = "Unauthenticated-Minibutton"
+                        Icon = "arrow"
+                        (click) = "HandleGoToAuthentication()"
+                        (Activate) = "HandleGoToAuthentication()">
+                    </FancyMinibutton>
+                </div>
+            }
+        </FancyContainer>
+    </div>
+</div>

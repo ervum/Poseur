@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "resolvePackageJsonExports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2024",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@ervum/constants": ["../packages/constants/dist"],
+      "@ervum/shared": ["../packages/shared/dist"],
+      "@ervum/types": ["../packages/types/dist"],
+      "@ervum/*": ["../packages/*/dist"]
+    },
+    "types": ["node", "jest"],
+    "resolveJsonModule": true
+  },
+  "references": [
+    {
+      "path": "../packages/constants"
+    },
+    {
+      "path": "../packages/shared"
+    },
+    {
+      "path": "../packages/types"
+    }
+  ],
+  "include": ["src/**/*", "test/**/*"]
+}

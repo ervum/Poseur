@@ -1,0 +1,432 @@
+@use '../../../styles' as s;
+
+
+
+:host {
+    --indicator-dynamic-offset: 0.5;
+    --indicator-static-x: 50%;
+    --indicator-static-y: 50%;
+
+    display: flex;
+    place-content: center;
+    width: 100%;
+
+    color: var(--text-main);
+}
+
+:host(.FancyMultibutton--Vertical) {
+    width: auto;
+}
+
+
+
+.FancyMultibutton-Wrapper {
+    display: inline-flex;
+    flex-direction: column;
+    place-content: center;
+    place-items: stretch;
+
+    position: relative;
+    box-sizing: border-box;
+
+    width: var(--multibutton-width, 100%);
+    height: 100%;
+
+    container-type: size;
+
+    border-color: transparent;
+    background-color: transparent;
+    border-radius: var(--radius-standard);
+    transition: border-radius var(--duration-standard) var(--easing-standard);
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: -1px;
+        z-index: -1;
+
+        background-color: var(--surface-background);
+        border: 1px solid var(--border-main);
+        border-radius: var(--radius-standard);
+
+        transition: border-radius var(--duration-standard) var(--easing-standard);
+    }
+
+    &:hover, &:focus-within {
+        border-radius: var(--radius-standard);
+
+        &::before {
+            border-radius: var(--radius-standard);
+        }
+
+        &:not(.FancyMultibutton--Vertical) {
+            &.Hovering--First {
+                border-radius: var(--radius-pill) var(--radius-sharp) var(--radius-sharp) var(--radius-pill);
+
+                &::before {
+                    border-radius: var(--radius-pill) var(--radius-sharp) var(--radius-sharp) var(--radius-pill);
+                }
+            }
+            &.Hovering--Last {
+                border-radius: var(--radius-sharp) var(--radius-pill) var(--radius-pill) var(--radius-sharp);
+
+                &::before {
+                    border-radius: var(--radius-sharp) var(--radius-pill) var(--radius-pill) var(--radius-sharp);
+                }
+            }
+
+            .FancyMultibutton-Highlight {
+                &.Hovering--Before {
+                    border-top-right-radius: var(--radius-sharp);
+                    border-bottom-right-radius: var(--radius-sharp);
+                }
+                &.Hovering--After {
+                    border-top-left-radius: var(--radius-sharp);
+                    border-bottom-left-radius: var(--radius-sharp);
+                }
+            }
+        }
+
+        .FancyMultibutton-Highlight {
+            border-radius: var(--radius-standard);
+
+            &.Hovering--Selected {
+                border-radius: var(--radius-pill);
+            }
+        }
+    }
+
+    &.FancyMultibutton--Backgroundless {
+        border: none;
+        box-shadow: 0 0 12px var(--glow-standard);
+    }
+
+    &.FancyMultibutton--Vertical {
+        --indicator-dot-size: calc(var(--multibutton-width, 40px) * 0.2);
+        --indicator-dash-width: 4px;
+        --indicator-dash-height: calc(var(--multibutton-width, 40px) * 0.4);
+
+        width: var(--multibutton-width, auto);
+
+        &:hover, &:focus-within {
+            &.Hovering--First {
+                border-radius: var(--radius-pill) var(--radius-pill) var(--radius-sharp) var(--radius-sharp);
+
+                &::before {
+                    border-radius: var(--radius-pill) var(--radius-pill) var(--radius-sharp) var(--radius-sharp);
+                }
+            }
+            &.Hovering--Last {
+                border-radius: var(--radius-sharp) var(--radius-sharp) var(--radius-pill) var(--radius-pill);
+
+                &::before {
+                    border-radius: var(--radius-sharp) var(--radius-sharp) var(--radius-pill) var(--radius-pill);
+                }
+            }
+
+            .FancyMultibutton-Highlight {
+                &.Hovering--Before {
+                    border-bottom-left-radius: var(--radius-sharp);
+                    border-bottom-right-radius: var(--radius-sharp);
+                }
+                &.Hovering--After {
+                    border-top-left-radius: var(--radius-sharp);
+                    border-top-right-radius: var(--radius-sharp);
+                }
+            }
+        }
+
+        .FancyMultibutton-Content {
+            flex-direction: column;
+            overflow: visible;
+        }
+
+        .FancyMultibutton-Highlight {
+            $Multibutton-Highlight-Height: calc((100% - (var(--multibutton-padding) * (var(--button-count) - 1))) / var(--button-count));
+
+            width: 100%;
+            left: 0;
+
+            height: $Multibutton-Highlight-Height;
+            top: calc((#{$Multibutton-Highlight-Height} + var(--multibutton-padding)) * var(--selected-index));
+
+            transition:
+                top var(--duration-standard) var(--easing-standard),
+                border-radius var(--duration-standard) var(--easing-standard);
+        }
+
+        .FancyMultibutton {
+            min-width: 0;
+            min-height: 0;
+        }
+    }
+}
+
+.FancyMultibutton-Content {
+    display: inline-flex;
+    flex-direction: row;
+    place-content: center;
+    place-items: center;
+
+    position: relative;
+
+    width: calc(100% - (var(--multibutton-padding) * 2));
+    height: calc(100% - (var(--multibutton-padding) * 2));
+
+    margin: var(--multibutton-padding);
+    gap: var(--multibutton-padding);
+}
+
+.FancyMultibutton-Highlight {
+    $Multibutton-Highlight-Width: calc((100% - (var(--multibutton-padding) * (var(--button-count) - 1))) / var(--button-count));
+
+    position: absolute;
+
+    z-index: 0;
+    pointer-events: none;
+
+    top: 0;
+
+    background-color: var(--accent-brand-soft);
+    border: 1px solid var(--accent-brand);
+    box-shadow: 0 0 14px -2px var(--accent-brand-glow);
+
+    width: $Multibutton-Highlight-Width;
+    left: calc((#{$Multibutton-Highlight-Width} + var(--multibutton-padding)) * var(--selected-index));
+
+    height: 100%;
+
+    border-radius: var(--radius-standard);
+
+    transition:
+        left var(--duration-standard) var(--easing-standard),
+        border-radius var(--duration-standard) var(--easing-standard);
+}
+
+.FancyMultibutton {
+    outline: none;
+    border: none;
+
+    z-index: 1;
+
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    cursor: pointer;
+
+    text-align: center;
+
+    display: flex;
+    place-content: center;
+    place-items: center;
+
+    flex: 1 1 0;
+    background-color: transparent;
+
+    color: inherit;
+    font-weight: 500;
+
+    white-space: nowrap;
+    border-radius: var(--radius-standard);
+    transition:
+        color var(--duration-standard) var(--easing-standard),
+        border-radius var(--duration-standard) var(--easing-standard);
+
+    &.FancyMultibutton--Selected {
+        color: var(--text-main);
+        font-weight: 600;
+
+        .FancyMultibutton-Icon {
+            @include s.IconFilled;
+        }
+    }
+
+    &.Hovering--Self {
+        .FancyMultibutton-Wrapper:not(.FancyMultibutton--Vertical) & {
+            &.Hovering--First {
+                border-radius: var(--radius-pill) var(--radius-sharp) var(--radius-sharp) var(--radius-pill);
+            }
+            &.Hovering--Last {
+                border-radius: var(--radius-sharp) var(--radius-pill) var(--radius-pill) var(--radius-sharp);
+            }
+        }
+
+        .FancyMultibutton--Vertical & {
+            &.Hovering--First {
+                border-radius: var(--radius-pill) var(--radius-pill) var(--radius-sharp) var(--radius-sharp);
+            }
+            &.Hovering--Last {
+                border-radius: var(--radius-sharp) var(--radius-sharp) var(--radius-pill) var(--radius-pill);
+            }
+        }
+
+        &::before {
+            inset: 0;
+        }
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+
+        inset: 50%;
+
+        background-color: var(--surface-background-hover);
+        box-shadow: 0 0 8px var(--glow-standard);
+
+        border-radius: inherit;
+        z-index: -1;
+
+        transition: inset var(--duration-standard) var(--easing-standard);
+    }
+}
+
+.FancyMultibutton-Label {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    place-content: center;
+    place-items: center;
+
+    pointer-events: none;
+}
+
+.FancyMultibutton-Icon {
+    width: 100%;
+    height: 100%;
+    max-width: 22px;
+    max-height: 22px;
+
+    pointer-events: none;
+
+    @include s.DualStateIcon(currentColor);
+}
+
+.FancyMultibutton-Indicator {
+    $Slot-Width: calc((100% - (var(--multibutton-padding) * (var(--button-count) - 1))) / var(--button-count));
+    $Slot-Height: calc((100% - (var(--multibutton-padding) * (var(--button-count) - 1))) / var(--button-count));
+
+    --active-index: var(--selected-index);
+
+    position: absolute;
+    z-index: 2;
+    pointer-events: none;
+    margin: 0;
+
+    left: calc((#{$Slot-Width} + var(--multibutton-padding)) * var(--active-index) + (#{$Slot-Width} * var(--indicator-dynamic-offset)));
+    top: var(--indicator-static-y);
+
+    transform: translate(-50%, -50%);
+
+    transition: left var(--duration-standard) var(--easing-standard),
+                top var(--duration-standard) var(--easing-standard);
+
+    &.FancyMultibutton-Indicator--Dot {
+        width: var(--indicator-dot-size, 8px);
+        height: var(--indicator-dot-size, 8px);
+
+        border-radius: var(--radius-pill);
+
+        background: var(--accent-brand);
+        box-shadow: 0 0 10px var(--accent-brand-glow);
+    }
+
+    &.FancyMultibutton-Indicator--Dash {
+        width: var(--indicator-dash-width, 4px);
+        height: var(--indicator-dash-height, 16px);
+
+        border-radius: var(--radius-pill);
+
+        background: var(--accent-brand);
+        box-shadow: 0 0 10px var(--accent-brand-glow);
+    }
+
+    &.FancyMultibutton-Indicator--Hover {
+        $Offset: 12px;
+
+        --active-index: var(--hover-index);
+        --indicator-scale: 0;
+
+        opacity: 0;
+        z-index: 1;
+
+        transition:
+            left var(--duration-standard) var(--easing-standard),
+            top var(--duration-standard) var(--easing-standard),
+            opacity var(--duration-standard) var(--easing-standard),
+            transform var(--duration-standard) var(--easing-standard);
+
+        .IndicatorPosition--Above & { transform: translate(-50%, calc(-50% - #{$Offset})) scale(var(--indicator-scale)); }
+        .IndicatorPosition--Right & { transform: translate(calc(-50% + #{$Offset}), -50%) scale(var(--indicator-scale)); }
+        .IndicatorPosition--Below & { transform: translate(-50%, calc(-50% + #{$Offset})) scale(var(--indicator-scale)); }
+        .IndicatorPosition--Left &  { transform: translate(calc(-50% - #{$Offset}), -50%) scale(var(--indicator-scale)); }
+
+        &.Is-Active {
+            --indicator-scale: 1;
+
+            opacity: 1;
+        }
+    }
+
+    .FancyMultibutton--Vertical & {
+        left: var(--indicator-static-x);
+        top: calc((#{$Slot-Height} + var(--multibutton-padding)) * var(--active-index) + (#{$Slot-Height} * var(--indicator-dynamic-offset)));
+
+        transition:
+            top var(--duration-standard) var(--easing-standard),
+            left var(--duration-standard) var(--easing-standard),
+            opacity var(--duration-standard) var(--easing-standard),
+            transform var(--duration-standard) var(--easing-standard);
+    }
+}
+
+.IndicatorPosition--Above {
+    --indicator-dynamic-offset: 0.5;
+    --indicator-static-x: 50%;
+    --indicator-static-y: 0.5px;
+
+    &.FancyMultibutton--Vertical {
+        --indicator-dynamic-offset: 0;
+    }
+}
+
+.IndicatorPosition--Right {
+    --indicator-dynamic-offset: 1;
+    --indicator-static-x: calc(100% - 0.5px);
+    --indicator-static-y: 50%;
+
+    &.FancyMultibutton--Vertical {
+        --indicator-dynamic-offset: 0.5;
+    }
+}
+
+.IndicatorPosition--Below {
+    --indicator-dynamic-offset: 0.5;
+    --indicator-static-x: 50%;
+    --indicator-static-y: calc(100% - 0.5px);
+
+    &.FancyMultibutton--Vertical {
+        --indicator-dynamic-offset: 1;
+    }
+}
+
+.IndicatorPosition--Left {
+    --indicator-dynamic-offset: 0;
+    --indicator-static-x: 0.5px;
+    --indicator-static-y: 50%;
+
+    &.FancyMultibutton--Vertical {
+        --indicator-dynamic-offset: 0.5;
+    }
+}
+
+.IndicatorPosition--Above,
+.IndicatorPosition--Below {
+    .FancyMultibutton-Indicator--Dash {
+        width: var(--indicator-dash-height, 16px);
+        height: var(--indicator-dash-width, 4px);
+    }
+}

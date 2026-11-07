@@ -1,0 +1,54 @@
+@use '../../../../styles' as s;
+@use '../shared/background-layer' as layer;
+
+
+
+.Topographic-Layer {
+    @include layer.ProceduralLayerStage(3);
+    transition: opacity 0.45s ease;
+    -webkit-mask-image: radial-gradient(ellipse 88% 82% at 50% 48%, #000 35%, rgba(0, 0, 0, 0.25) 100%);
+    mask-image: radial-gradient(ellipse 88% 82% at 50% 48%, #000 35%, rgba(0, 0, 0, 0.25) 100%);
+}
+
+.Topographic-SVG,
+.Topographic-Canvas {
+    width: 106%;
+    height: 106%;
+    margin-left: -3%;
+    margin-top: -3%;
+    display: block;
+}
+
+.Topographic-Layer--Ambient .Topographic-SVG {
+    transform:
+        translate3d(
+            calc(var(--pointer-x, 0) * -14px),
+            calc(var(--pointer-y, 0) * -14px),
+            0
+        );
+    animation: Topographic-AmbientDrift 26s ease-in-out infinite alternate;
+    @include layer.PauseWhenInactive;
+}
+
+.Topographic-Path {
+    fill: none;
+    stroke: var(--accent-brand-glow, rgba(139, 124, 255, 0.45));
+    stroke-width: 0.85px;
+    vector-effect: non-scaling-stroke;
+    opacity: 0.48;
+
+    &.Topographic-Path--Index {
+        stroke: var(--accent-brand, #8b7cff);
+        stroke-width: 1.45px;
+        opacity: 0.86;
+    }
+}
+
+@keyframes Topographic-AmbientDrift {
+    0% {
+        scale: 1;
+    }
+    100% {
+        scale: 1.035;
+    }
+}

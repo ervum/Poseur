@@ -1,0 +1,10 @@
+<div
+    class = "Blueprint-Layer"
+    [class.Blueprint-Layer--Ambient] = "Motion() === 'Ambient'"
+    [class.Blueprint-Layer--Evolving] = "Motion() === 'Evolving'"
+    [ngStyle] = "GridStyles()">
+    <div class = "Blueprint-Base-Grid"></div>
+    @if (Motion() !== 'Static') {
+        <div class = "Blueprint-Interactive-Grid"></div>
+    }
+</div>

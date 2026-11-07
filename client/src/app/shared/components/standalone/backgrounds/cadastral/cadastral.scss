@@ -1,0 +1,60 @@
+@use '../../../../styles' as s;
+@use '../shared/background-layer' as layer;
+
+
+
+.Cadastral-Layer {
+    @include layer.ProceduralLayerStage(4);
+    transition: opacity 0.45s ease;
+    -webkit-mask-image: radial-gradient(ellipse 86% 80% at 50% 50%, #000 30%, rgba(0, 0, 0, 0.15) 100%);
+    mask-image: radial-gradient(ellipse 86% 80% at 50% 50%, #000 30%, rgba(0, 0, 0, 0.15) 100%);
+}
+
+.Cadastral-SVG,
+.Cadastral-Canvas {
+    width: 104%;
+    height: 104%;
+    margin-left: -2%;
+    margin-top: -2%;
+    display: block;
+}
+
+.Cadastral-Layer--Ambient .Cadastral-SVG {
+    transform:
+        translate3d(
+            calc(var(--pointer-x, 0) * -10px),
+            calc(var(--pointer-y, 0) * -10px),
+            0
+        );
+}
+
+.Cadastral-Parcel {
+    fill: transparent;
+    stroke: var(--accent-brand-glow, rgba(139, 124, 255, 0.36));
+    stroke-width: 0.8px;
+    vector-effect: non-scaling-stroke;
+
+    &.Cadastral-Parcel--Major {
+        stroke: var(--accent-brand, #8b7cff);
+        stroke-width: 1.35px;
+        opacity: 0.78;
+    }
+
+    &.Cadastral-Parcel--Accent {
+        fill: rgba(139, 124, 255, 0.055);
+    }
+}
+
+.Cadastral-Layer--Ambient .Cadastral-Parcel--Accent {
+    animation: Cadastral-ParcelPulse 9s ease-in-out infinite alternate;
+    @include layer.PauseWhenInactive;
+}
+
+@keyframes Cadastral-ParcelPulse {
+    0% {
+        fill-opacity: 0.35;
+    }
+    100% {
+        fill-opacity: 1;
+    }
+}

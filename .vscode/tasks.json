@@ -2,7 +2,7 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Packages: watch",
+      "label": "Packages: Watch",
       "type": "shell",
       "command": "pnpm packages:watch",
       "problemMatcher": [],
@@ -16,21 +16,7 @@
     },
 
     {
-      "label": "Server: start:dev",
-      "type": "shell",
-      "command": "pnpm server:start:dev",
-      "problemMatcher": [],
-      "options": {
-        "cwd": "${workspaceFolder}"
-      },
-      "presentation": {
-        "reveal": "always",
-        "panel": "dedicated"
-      }
-    },
-
-    {
-      "label": "Client: start",
+      "label": "Client: Start",
       "type": "shell",
       "command": "pnpm client:start",
       "problemMatcher": [],
@@ -42,16 +28,30 @@
         "panel": "dedicated"
       }
     },
+
+    {
+      "label": "Server: Start",
+      "type": "shell",
+      "command": "pnpm server:start:dev",
+      "problemMatcher": [],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    },
     
     {
-      "label": "Dev: All",
+      "label": "Development: All",
       "dependsOn": [
-        "Packages: watch",
-        "Server: start:dev",
-        "Client: start"
+        "Packages: Watch",
+        "Client: Start",
+        "Server: Start"
       ],
       "dependsOrder": "parallel",
-      "detail": "Run packages watcher, Nest dev server and Angular dev server in dedicated terminals"
+      "detail": "Run packages watcher, Angular dev server and Nest dev server in dedicated terminals"
     }
   ]
 }

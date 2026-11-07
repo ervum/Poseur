@@ -1,0 +1,220 @@
+@use 'shared/styles' as s;
+
+
+
+/* --- Floating Top Bar --- */
+.Shell-TopBar {
+    @include s.GlassSurface(var(--space-2) var(--space-3));
+
+    & {
+        position: fixed;
+        top: var(--space-4);
+        left: var(--space-4);
+        right: var(--space-4);
+        z-index: 100;
+
+        height: var(--topbar-height);
+        border-radius: 20px;
+
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+        align-items: center;
+        gap: var(--space-3);
+
+        overflow: visible;
+    }
+
+    @include s.Compact {
+        top: var(--space-3);
+        left: var(--space-3);
+        right: var(--space-3);
+        padding: var(--space-2) var(--space-2);
+        border-radius: 18px;
+        gap: var(--space-2);
+    }
+}
+
+.Shell-TopBar-Cluster {
+    display: flex;
+    flex-direction: row;
+    place-items: center;
+    gap: var(--space-3);
+    min-width: 0;
+
+    @include s.Compact {
+        gap: var(--space-2);
+    }
+}
+
+.Shell-TopBar-Cluster--Start {
+    justify-self: start;
+}
+
+.Shell-TopBar-Cluster--End {
+    justify-self: end;
+}
+
+.Shell-Brand {
+    display: inline-flex;
+    flex-direction: row;
+    place-items: center;
+    gap: var(--space-3);
+
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-control);
+
+    color: var(--text-main);
+    text-decoration: none;
+
+    transition: transform var(--duration-standard) var(--easing-standard);
+
+    @include s.FocusRing;
+
+    &:hover,
+    &:focus-visible {
+        .Shell-Brand-Mark {
+            transform: rotate(-12deg) scale(1.06);
+            color: var(--accent-brand);
+
+            @include s.IconFilled;
+        }
+    }
+}
+
+.Shell-Brand-Mark {
+    --icon-stroked: #{s.IconURL('logo')};
+    --icon-filled: #{s.IconURL('logo', 'Filled')};
+
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+
+    transition:
+        transform var(--duration-standard) var(--easing-standard),
+        color var(--duration-standard) var(--easing-standard);
+
+    @include s.DualStateIcon(currentColor);
+}
+
+.Shell-Brand-Wordmark {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text-main);
+
+    @include s.Compact {
+        display: none;
+    }
+}
+
+.Back-Minibutton {
+    --minibutton-width: 44px;
+    --minibutton-height: 44px;
+
+    transform: rotate(180deg);
+    opacity: 1;
+    margin-right: 0px;
+
+    transition:
+        width 0.5s var(--easing-standard),
+        margin-right 0.5s var(--easing-standard),
+        opacity 0.4s var(--easing-standard),
+        transform 0.5s var(--easing-standard);
+    transition-delay: 0.1s;
+
+    &.Is-Hidden {
+        --minibutton-width: 0px;
+        width: 0px;
+        margin-right: calc(var(--space-3) * -1);
+        opacity: 0;
+        pointer-events: none;
+        transition-delay: 0s;
+
+        @include s.Compact {
+            margin-right: calc(var(--space-2) * -1);
+        }
+    }
+
+    ::ng-deep .Minibutton-IconContainer {
+        &:hover, &:focus-visible, &:focus {
+            transform: translateY(3px) scale(var(--hover-scale-big));
+        }
+    }
+
+    @include s.Compact {
+        --minibutton-width: 38px;
+        --minibutton-height: 38px;
+    }
+}
+
+.Language-Dropdown {
+    width: 142px;
+    --button-height: 44px;
+    z-index: 105;
+
+    @include s.Compact {
+        width: 64px;
+        --button-height: 38px;
+    }
+}
+
+.Theme-Toggle-Wrapper {
+    position: relative;
+    display: flex;
+    place-items: center;
+}
+
+.Theme-Toggle-Minibutton,
+.Background-Toggle-Minibutton {
+    --minibutton-width: 44px;
+    --minibutton-height: 44px;
+
+    @include s.Compact {
+        --minibutton-width: 38px;
+        --minibutton-height: 38px;
+    }
+}
+
+.Background-Drawer-Body {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 4px 2px 24px 2px;
+}
+
+.Background-Drawer-Subtitle {
+    margin: 0;
+    font-size: 0.84rem;
+    line-height: 1.45;
+    color: var(--text-muted);
+}
+
+.Theme-Toggle-Tooltip {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    z-index: 110;
+}
+
+
+
+/* --- Centered Top-Bar Navigation Dock --- */
+.Shell-Dock {
+    justify-self: center;
+    display: flex;
+    place-items: center;
+    z-index: 102;
+}
+
+.RouteSelector-Multibutton {
+    --multibutton-width: 120px;
+    width: 120px;
+    height: 44px;
+
+    @include s.Compact {
+        --multibutton-width: 100px;
+        width: 100px;
+        height: 38px;
+    }
+}
